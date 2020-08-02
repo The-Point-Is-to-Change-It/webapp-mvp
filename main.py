@@ -6,11 +6,8 @@ Unauthorized copying of this application, via any medium is strictly prohibited
 Proprietary and confidential
 Written by Russell Molimock <admin@thepointistochangeit.com>, 2020
 -------------------------------------------------------------------------------
-"""
 
 
-
-"""
 -------------------------------
 Flask App and Flask-login setup.
 --------------------------------
@@ -47,6 +44,8 @@ import secrets
 app.secret_key = os.environ.get("FLASK_SECRET_KEY")
 print(app.secret_key)
 
+
+
 """
 ----------------------------
 Flask-login setup
@@ -56,6 +55,8 @@ login_manager = LoginManager()
 login_manager.login_view = 'index'
 login_manager.init_app(app)
 # login_manager.login_view = redirect on bad login
+
+
 @login_manager.user_loader
 def load_user(user_id):
     """
@@ -70,11 +71,14 @@ def load_user(user_id):
 Authentication Routes
 ----------------------------
 """
+
+
 @app.route('/')
 def index():
     if current_user.is_authenticated:
         return render_template('indexx.html', nav_buttons=home_private_buttons)
     return render_template('indexx.html', nav_buttons=home_public_buttons)
+
 
 @app.route('/profile')
 @login_required
@@ -92,6 +96,7 @@ def profile():
                             image=current_user.image,
                             nav_links=profile_private_links,
                             nav_buttons=profile_private_buttons)
+
 
 @app.route('/register', methods=['GET', 'POST'])
 @app.route('/register/<token>', methods=['GET', 'POST'])
@@ -254,7 +259,10 @@ def logout():
 Helper functions.
 ----------------------------
 """
+
+
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'bmp']
+
 
 def allowed_file(filename):
     # .split('.')[-1:][0]
@@ -277,6 +285,7 @@ def bad_uploaded_file(request, file=None):
         flash('Profile picture must be one of these formats: .png, .jpg, .jpeg, or .bmp')
         return True
     return False
+
 
 def password_check(password):
     """
@@ -312,6 +321,7 @@ def password_check(password):
             'a symbol.' : symbol_error,
             })
 
+
 def username_check(password):
     """
     Verify format of 'username'
@@ -334,6 +344,7 @@ def username_check(password):
             'contain only text and/or numbers.' : symbol_error,
             })
 
+
 def save_profile_picture(file, user):
     if file and allowed_file(file.filename):
         ext = secure_filename(file.filename).split('.')[-1:][0].lower()
@@ -343,24 +354,13 @@ def save_profile_picture(file, user):
         user.save_to_db()
 
 
-
-"""
-print('userid = ', userid)
-        print('given_name', idinfo['given_name'])
-        print('family_name', idinfo['family_name'])
-        print('email', idinfo['email'])
-        print('name', idinfo['name'])
-        print('picture', idinfo['picture'])
-        print('all', idinfo)
-        """
-
-
-
 """
 ----------------------------
 Status checks
 ----------------------------
 """
+
+
 @app.route('/status', methods=['GET'], strict_slashes=False)
 def status():
     """
@@ -372,17 +372,13 @@ def status():
     return jsonify({"status": "OK"})
 
 
-
-
-
-
-
-
 """
 ----------------------------
 Error responses
 ----------------------------
 """
+
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
@@ -409,3 +405,4 @@ if __name__ == "__main__":
     host = os.getenv("API_HOST", "127.0.0.1")
     port = os.getenv("API_PORT", "8080")
     app.run(host=host, port=port)
+
