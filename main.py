@@ -248,12 +248,6 @@ def logout():
     return redirect(url_for('index'))
 
 
-
-
-
-
-
-
 """
 ----------------------------
 Helper functions.
@@ -268,6 +262,7 @@ def allowed_file(filename):
     # .split('.')[-1:][0]
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 def bad_uploaded_file(request, file=None):
     if 'file' not in request.files:
