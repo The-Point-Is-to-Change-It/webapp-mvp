@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Control the TV</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#power').click(() => {
+    $.ajax({
+      method: 'POST',
+      url: 'http://thepointistochangeit.com/power',
+      contentType: 'application/json',
+      data: JSON.stringify({ power: on })
+    }).done(function (data) {
+      $('body').html('worked');
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <header>
+    <h1>Control the TV</h1>
+  </header>
+
+  <main>
+    <section id="rules-container" class="container">
+      <header>
+        <h2>TV Control Rules:</h2>
+      </header>
+      <p id="rules-desc">
+        You have control of the TV if:<br>
+        1. You turned it on AND you are watching it or have only been away for less than 10 minutes.<br>
+        You do NOT have control of the TV if:<br>
+        2. You turned it on BUT you have been away for more than 10 minutes.<br>
+        3. You tuned it off.<br>
+        You can gain control of the TV if:<br>
+        1. No one currently has control and you turn it on (must turn it off and on if it's already on).<br>
+      </p>
+    </section>
+
+    <section id="tv-container" class="container">
+      <!--
+        1. power button
+        2. who has control
+        3. identity input
+        4. 
+
+
+      -->
+      <button id="power">
+      
+    </section>
+  </main>
+
+</body>
+</html>
