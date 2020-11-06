@@ -16,6 +16,41 @@ def hello():
 def control_view():
     return render_template('control.html')
 
+def to_dict(self):
+    d = {}
+    d['status'] = self.status
+    return d
+
+@app.route('/power', methods=['POST'])
+def power():
+    viewer = request.json['viewer']
+    action = request.json['action']
+    tv = db.collection(u'tv').document(u'tv')
+    tv.set({
+        u'status': action
+    })
+    tv = db.collection(u'tv')
+    tv = tv.stream()
+    for each in tv:
+        print(each.to_dict()['status'])
+    print(viewer, action)
+    return 'success'
+
+@app.route('/tv', methods=['POST'])
+def tv():
+    from datetime import datetime
+    stamp = request.json['datetime']
+    stamp = datetime.strptime(stamp, "%a, %d %b %Y %H:%M:%S %Z")
+    print('stamp is ', stamp)
+    now = datetime.now()
+    print(stamp > now)
+    tv = db.collection(u'tv')
+    tv = tv.stream()
+    tv_status = ''
+    for each in tv:
+        print(each.to_dict()['status'])
+        tv_status = each.to_dict()['status']
+    return str(tv_status)
 
 @app.route('/data', methods=['POST', 'GET'])
 def data():

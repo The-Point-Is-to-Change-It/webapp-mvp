@@ -5,44 +5,112 @@
   <meta charset="utf-8">
 
   <title>Control the TV</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }} ">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('#power').click(() => {
-    $.ajax({
-      method: 'POST',
-      url: 'http://thepointistochangeit.com/power',
-      contentType: 'application/json',
-      data: JSON.stringify({ power: on })
-    }).done(function (data) {
-      $('body').html('worked');
-    }
-  </script>
+        <script>
+
+
+
+            function selectViewer() {
+                $('#viewer-selection').css('display', 'flex')
+            }
+
+            function closeSelection() {
+                $('#viewer-selection').css('display', 'none')
+            }
+
+            function togglePower(viewer) {
+                if ($('#tvOff').css('display') == 'block') {
+                    // turn tv on
+                    $('#tvOn').css('display', 'block')
+                    $('#tvOff').css('display', 'none')
+
+                    var data = {'viewer': viewer, 'action': 'on'};
+                    var control = sendAndFillData(data)
+                }
+                else {
+                    // turn tv off
+                    $('#tvOff').css('display', 'block');
+                    $('#tvOn').css('display', 'none');
+                    var data = {'viewer': viewer, 'action': 'off'}
+                    var control = sendAndFillData(data)
+                }
+                closeSelection();
+            }
+
+            function getTvStatus(datetime) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/tv',
+                    data: JSON.stringify({'datetime': datetime}),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(data) {
+                        if (data == 'off') {
+                            // only show tv off
+                            $('#tvOff').css('display', 'block');
+                            $('#tvOn').css('display', 'none');
+                        }
+                        else {
+                            // only show tv on
+                            $('#tvOn').css('display', 'block');
+                            $('#tvOff').css('display', 'none');
+                        }
+                    },
+                    error: function(data) {
+                        alert(data);
+                    }
+                });
+            }
+            var datetime = new Date();
+            getTvStatus(datetime.toUTCString())
+            
+
+            function sendAndFillData(data=null, fill=null) {
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/power',
+
+                    data: JSON.stringify(data),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(data) {
+                        if (fill) {
+                            $(fill).text(data);
+                        }
+                    },
+                    error: function(data) {                        alert(data);
+                        alert(data);
+                    }
+                });
+
+            };
+        </script>
 
 </head>
 
 <body>
 
-  <header>
-    <h1>Control the TV</h1>
+  <header id="header">
+    <h1><span id="controller"> No one </span> has control over the TV </h1>
   </header>
 
   <main>
-    <section id="rules-container" class="container">
-      <header>
-        <h2>TV Control Rules:</h2>
-      </header>
-      <p id="rules-desc">
-        You have control of the TV if:<br>
-        1. You turned it on AND you are watching it or have only been away for less than 10 minutes.<br>
-        You do NOT have control of the TV if:<br>
-        2. You turned it on BUT you have been away for more than 10 minutes.<br>
-        3. You tuned it off.<br>
-        You can gain control of the TV if:<br>
-        1. No one currently has control and you turn it on (must turn it off and on if it's already on).<br>
-      </p>
-    </section>
+
+    <aside id="viewer-selection" style="display: none">
+        <h1>Who are you?</h1>
+        <div class="selection" id="joe" onclick="togglePower('joe')">
+            JOE
+        </div>
+        <div class="selection" id="russ" onclick="togglePower('russ')">
+            RUSS
+        </div>
+        <div class="selection" id="other" onclick="togglePower('other')">
+            OTHER
+        </div>
+        <div class="selection" id="cancel" onclick="closeSelection()">
+            CANCEL
+        </div>
+    </aside>
 
     <section id="tv-container" class="container">
       <!--
@@ -53,8 +121,26 @@
 
 
       -->
-      <button id="power">
+      <img id="tvOn" style="display: none" src="https://i.imgur.com/Lf0Twl0.png" onclick=selectViewer()>
+      <img id="tvOff" style="display: block" src="https://i.imgur.com/Wg568gC.png" onclick="selectViewer()">
       
+
+      
+    </section>
+
+    <section id="rules-container" class="container">
+      <header>
+        <h2>TV Control Rules:</h2>
+      </header>
+      <p id="rules-desc">
+        <b>You have control of the TV if:</b><br>
+        You turned it on AND you are watching it or have only been away for less than an hour.<br>
+        <b>You do NOT have control of the TV if:</b><br>
+        1. You turned it on BUT you have been away for more than an hour.<br>
+        2. You tuned it off.<br>
+        <b>You can gain control of the TV if:</b><br>
+        No one currently has control and you turn it on (must turn it off and on if it's already on).<br>
+      </p>
     </section>
   </main>
 
