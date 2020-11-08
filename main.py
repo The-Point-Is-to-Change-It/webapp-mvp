@@ -1,14 +1,59 @@
-# [START gae_python38_app]
-from flask import Flask, request, render_template, jsonify
-from models import db
+"""
+-----------------------------
+  The Point Is to Change It
+-----------------------------
 
-# If `entrypoint` is not defined in app.yaml, App Engine will look for an app
-# called `app` in `main.py`.
+Responsive Webapp Entry Point
+Contains:
+1. bluprint registrations
+2. authenticate request
+2. error handling
+
+"""
+
+from flask import Flask, jsonify
+from flask_cors import (CORS, cross_origin)
+from blueprints import *
+
+
 app = Flask(__name__)
+CORS(app, resources={r"*": {"origins": "*"}})
+app.register_blueprint(home)
+app.register_blueprint(authenticate)
+
+@app.before_request
+def before():
+    """
+    Authenticate request
+    """
+    auth = Auth()
+    auth.validate()
+        
 
 
 
+@app.errorhandler(404)
+def not_found(error) -> str:
+    """
+    Not found handler
+    """
+    return jsonify({"error": "Not found"}), 404
 
+
+@app.errorhandler(403)
+def Forbidden(error) -> str:
+    """
+    Forbidden handler
+    """
+    return jsonify({"error": "Forbidden"}), 403
+
+
+@app.errorhandler(401)
+def Unauthorized(error) -> str:
+    """
+    Unauthorized handler
+    """
+    return jsonify({"error": "Unauthorized"}), 401
 
 
 if __name__ == '__main__':
