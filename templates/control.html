@@ -24,28 +24,26 @@
                     // turn tv on
                     $('#tvOn').css('display', 'block')
                     $('#tvOff').css('display', 'none')
-
                     var data = {'viewer': viewer, 'action': 'on'};
-                    var control = sendAndFillData(data)
+                    var controller = sendAndFillData('/power', data, '#controller')
                 }
                 else {
                     // turn tv off
                     $('#tvOff').css('display', 'block');
                     $('#tvOn').css('display', 'none');
                     var data = {'viewer': viewer, 'action': 'off'}
-                    var control = sendAndFillData(data)
+                    var res = sendAndFillData('/power', data, '#controller')
                 }
                 closeSelection();
             }
 
-            function getTvStatus(datetime) {
+            function getTvStatus() {
                 $.ajax({
-                    type: 'POST',
+                    type: 'GET',
                     url: '/tv',
-                    data: JSON.stringify({'datetime': datetime}),
                     contentType: 'application/json;charset=UTF-8',
                     success: function(data) {
-                        if (data == 'off') {
+                        if (data['tv_status'] == 'off') {
                             // only show tv off
                             $('#tvOff').css('display', 'block');
                             $('#tvOn').css('display', 'none');
@@ -55,21 +53,21 @@
                             $('#tvOn').css('display', 'block');
                             $('#tvOff').css('display', 'none');
                         }
+                        $('#controller').text(data['controller']);
                     },
                     error: function(data) {
                         alert(data);
                     }
                 });
             }
-            var datetime = new Date();
-            getTvStatus(datetime.toUTCString())
+            getTvStatus()
             
 
-            function sendAndFillData(data=null, fill=null) {
+            function sendAndFillData(route, data=null, fill=null) {
                 
                 $.ajax({
                     type: 'POST',
-                    url: '/power',
+                    url: route,
 
                     data: JSON.stringify(data),
                     contentType: 'application/json;charset=UTF-8',
@@ -78,7 +76,7 @@
                             $(fill).text(data);
                         }
                     },
-                    error: function(data) {                        alert(data);
+                    error: function(data) {
                         alert(data);
                     }
                 });
@@ -91,21 +89,21 @@
 <body>
 
   <header id="header">
-    <h1><span id="controller"> No one </span> has control over the TV </h1>
+    <h1><span id="controller"> No one </span> has control of the TV </h1>
   </header>
 
   <main>
 
     <aside id="viewer-selection" style="display: none">
         <h1>Who are you?</h1>
-        <div class="selection" id="joe" onclick="togglePower('joe')">
+        <div class="selection" id="joe" onclick="togglePower('Joe')">
             JOE
         </div>
-        <div class="selection" id="russ" onclick="togglePower('russ')">
+        <div class="selection" id="russ" onclick="togglePower('Russ')">
             RUSS
         </div>
-        <div class="selection" id="other" onclick="togglePower('other')">
-            OTHER
+        <div class="selection" id="other" onclick="togglePower('Guest')">
+            GUEST
         </div>
         <div class="selection" id="cancel" onclick="closeSelection()">
             CANCEL
@@ -120,7 +118,7 @@
         4. 
 
 
-      -->
+      -->tap the TV to turn it on/off
       <img id="tvOn" style="display: none" src="https://i.imgur.com/Lf0Twl0.png" onclick=selectViewer()>
       <img id="tvOff" style="display: block" src="https://i.imgur.com/Wg568gC.png" onclick="selectViewer()">
       
@@ -134,10 +132,10 @@
       </header>
       <p id="rules-desc">
         <b>You have control of the TV if:</b><br>
-        You turned it on AND you are watching it or have only been away for less than an hour.<br>
+        You turned it on less than an hour ago.<br><br>
         <b>You do NOT have control of the TV if:</b><br>
-        1. You turned it on BUT you have been away for more than an hour.<br>
-        2. You tuned it off.<br>
+        1. You turned it on over an hour ago.<br>
+        2. You turned it off.<br><br>
         <b>You can gain control of the TV if:</b><br>
         No one currently has control and you turn it on (must turn it off and on if it's already on).<br>
       </p>

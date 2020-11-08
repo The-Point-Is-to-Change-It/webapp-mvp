@@ -4,23 +4,21 @@ from google.cloud import firestore
 # Project ID is determined by the GCLOUD_PROJECT environment variable
 db = firestore.Client()
 
-doc_ref = db.collection(u'users').document(u'alovelace')
-doc_ref.set({
-    u'first': u'Ada',
-    u'last': u'Lovelace',
-    u'born': 1815
-})
+class TvControl():
+    """ data for tv control page """
+    def __init__(self):
+        from datetime import datetime
+        self.controller = 'No one'
+        self.tv_status = 'off'
+        self.last_watched = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
+    def to_dict(self):
+        d = {}
+        d['controller'] = self.controller
+        d['tv_status'] = self.tv_status
+        d['last_watched'] = self.last_watched
+        return d
 
-doc_ref = db.collection(u'users').document(u'aturing')
-doc_ref.set({
-    u'first': u'Alan',
-    u'middle': u'Mathison',
-    u'last': u'Turing',
-    u'born': 1912
-})
 
-users_ref = db.collection(u'users')
-docs = users_ref.stream()
 
-for doc in docs:
-    print(f'{doc.id} => {doc.to_dict()}')
+tv_control_ref = db.collection(u'tv_control')
+tv_control_ref.document(u'data').set(TvControl().to_dict())
