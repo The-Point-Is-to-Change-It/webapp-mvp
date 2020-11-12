@@ -22,15 +22,7 @@ def register():
     if response.get('status') == 'error':
         return render_template('/public/landing.html', error=response['message'])
 
-    # if registration succeeds, user /auth/api/login endpoint to login
-    response = requests.post(build_url('auth/api/login'), data=request.form).json()
-
-    # set session cookie and redirect to dashboard
-    ret = make_response(render_template('./dashboard.html'))
-    #ret.set_cookie('session', response.get('session'))
-
-    # automatically login the new user
-    print(response.get('userId'), 'is now a user.')
+    # user is registered, automatically log them in
     return redirect('/auth/login')
 
 
@@ -39,9 +31,16 @@ def login():
     """
     Login a user if credentials are correct
     """
-    from flask import url_for
+    import requests
+    from main import build_url
+    # if registration succeeds, user /auth/api/login endpoint to login
+    response = requests.post(build_url('auth/api/login'), data=request.form).json()
 
-    return redirect(url_for('dashboard.index'))
+    # set session cookie and redirect to dashboard
+    ret = make_response(render_template('./dashboard.html'))
+    ret.set_cookie('session', response.get('session'))
+    return ret
+
 
 
 @authenticate.route('/logout', methods=['GET'], strict_slashes=False)

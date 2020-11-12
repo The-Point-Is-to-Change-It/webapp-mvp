@@ -30,6 +30,7 @@ def before():
     """
     auth = Auth()
     auth.is_valid()
+
         
 
 
@@ -60,9 +61,11 @@ def Unauthorized(error) -> str:
 
 def build_url(endpoint):
     # in deployment
-    # return 'http://thepointistochangeit.com/' + endpoint
-    # in development
-    return 'http://127.0.0.1:8080/' + endpoint
+    return 'https://the-point-is-to-change-it-v0.uc.r.appspot.com/' + endpoint
+
+
+# in development
+# return 'http://127.0.0.1:8080/' + endpoint
 
 
 if __name__ == '__main__':

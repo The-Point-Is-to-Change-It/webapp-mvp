@@ -68,7 +68,7 @@ def api_login():
                 Failure: return error message
                 Success: return user id
     """
-    from models import User
+    from models import User, Session
     from main import auth
     # get login credentials
     email, pwd = request.form.get('email'), request.form.get('password')
@@ -90,9 +90,14 @@ def api_login():
     
     # user found, return user id and session id
     session = auth.begin_session(user.id)
+    kwargs = {
+        'session': session,
+        'user_id': user.id
+    }
+    session = Session(**kwargs)
     return jsonify({
         'status': 'success',
         'message': '',
         'userId': str(user.id),
-        'session': session
+        'session': session.id
     })
