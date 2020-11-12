@@ -7,12 +7,13 @@ Responsive Webapp Entry Point
 Contains:
 1. bluprint registrations
 2. authenticate request
-2. error handling
+3. error handling
 
 """
 
 from flask import Flask, jsonify
 from flask_cors import (CORS, cross_origin)
+from blueprints import authenticate
 from blueprints import *
 
 
@@ -20,6 +21,7 @@ app = Flask(__name__)
 CORS(app, resources={r"*": {"origins": "*"}})
 app.register_blueprint(home)
 app.register_blueprint(authenticate)
+app.register_blueprint(dash)
 
 @app.before_request
 def before():
@@ -27,7 +29,7 @@ def before():
     Authenticate request
     """
     auth = Auth()
-    auth.validate()
+    auth.is_valid()
         
 
 
@@ -54,6 +56,13 @@ def Unauthorized(error) -> str:
     Unauthorized handler
     """
     return jsonify({"error": "Unauthorized"}), 401
+
+
+def build_url(endpoint):
+    # in deployment
+    # return 'http://thepointistochangeit.com/' + endpoint
+    # in development
+    return 'http://127.0.0.1:8080/' + endpoint
 
 
 if __name__ == '__main__':

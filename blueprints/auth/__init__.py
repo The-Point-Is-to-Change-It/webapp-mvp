@@ -12,3 +12,7 @@ Contained in /auth:
 from flask import Blueprint
 
 authenticate = Blueprint("auth", __name__, url_prefix="/auth")
+
+from blueprints.auth.routes import *
+from blueprints.auth.api import *
+from blueprints.auth.auth import *

@@ -26,10 +26,17 @@ class Auth():
         """
         Initiate an instance
         """
-
         from uuid import uuid4
         self.id = str(uuid4())
     
+    def begin_session(self, user_id):
+        """
+        Create and store a token associated with user_id
+        """
+        new_session = self.id
+        Auth.sessions[new_session] = user_id
+        return new_session
+
     def is_public(self, route: str) -> bool:
         """
         Check if a route or endpoint is accessible to the current user
@@ -45,15 +52,19 @@ class Auth():
                 return True
         return False
 
-    def validate(self):
+    def is_valid(self):
         """
         Authenticate a request
+        Check if page requested is public, if not check session cookie
+            Failure: abort
+            Success: do nothing
         """
         # put if not logged in
         # user not authenticated and path is private
         if not self.is_public(request.path):
-            abort(401)
+            if not request.cookies.get('session'):
+                abort(401)
             
 
 auth = Auth()
-
+auth.begin_session('email')

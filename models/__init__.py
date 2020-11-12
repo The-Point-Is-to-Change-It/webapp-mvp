@@ -9,4 +9,6 @@ Contained in /models:
 
 """
 
-from models.engine.nosqldb import db
+from models.engine.nosqldb import db, Data
+from models.base import Base
+from models.user import User
