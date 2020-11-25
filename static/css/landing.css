@@ -1,0 +1,197 @@
+html, body, *, * > * {
+    box-sizing: border-box;
+}
+
+/* ================================= HEADER */
+
+body > header {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100vw;
+}
+
+#menu-checkbox, #menu-lines, #menu-content, #acting-capacity-container, #menu, #menu-container {
+    display: none;
+}
+/* ACTING CAPACITY */
+#acting-capacity {
+    display: none;
+}
+
+/* LOGO */
+#logo-container-outer {
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#logo-container-inner {
+    justify-content: center;
+}
+* {
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    color: rgb(18, 18, 18);
+}
+
+header {
+    width: 100%;
+    height: auto;
+    max-height: 15vh;
+    background-color: rgb(18, 18, 18);
+    display: flex;
+    justify-content: center;
+    padding: 1% 1% 0% 1%;
+    color: white;
+}
+footer {
+    color: white;
+}
+main {
+    padding-bottom: 3rem;
+    min-height: calc(calc(100vh + 100vw) / 2.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+}
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 80vh;
+    width: 100vw;
+}
+
+#action {
+    color: rgb(99, 99, 99);
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-weight: 300;
+    height: 20vh;
+    font-size: calc(calc(5vh + 5vw / 3) - 50%);
+    z-index: 2;
+}
+#incentives {
+    display: flex;
+    justify-content: stretch;
+    align-items: flex-end;
+    position: relative;
+    top:8%;
+    height: 15rem;
+}
+.bar {
+    width: calc(15vw + 30px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 9px;
+    font-size: 14px;
+}
+
+
+#views {
+    height: 45%;
+    min-height: 90px;
+    position: relative;
+    left: 5%;
+    background-color: rgb(138, 138, 138);
+}
+#likes {
+    height: 30%;
+    min-height: 4rem;
+    z-index: 2;
+    background-color: rgb(196, 196, 196);
+}
+#change {
+    height: 90%;
+    position: relative;
+    right: 5%;
+    justify-content: center;
+    background-color: #f1c40f;
+}
+#container:hover #views {
+    height: 40%;
+    transition: 0.3s;
+}
+#container:hover #likes {
+    height: 25%;
+    transition: 0.3s;
+}
+#container:hover #change {
+    height: 100%;
+    transition: 0.3s;
+}
+img {
+    height: 5rem;
+    max-height: 10vh;
+    width: auto;
+}
+form {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 90vw;
+    min-width: 40vw;
+    z-index: 3;
+}
+#twitter-container {
+    background-color: rgb(18, 18, 18);
+    height: 4rem;
+    min-width: 55vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+#twitter-container:hover {
+    background-color: rgb(33, 33, 33);
+}
+#twitter-link:visited {
+    color: white;
+}
+#twitter-link {
+    color: white;
+    font-size: 1.5rem;
+}
+#email {
+    height: 3rem;
+    font-size: 24px;
+    text-align: center;
+    color: rgb(99, 99, 99);
+    border-radius: 0.5rem;
+    border: 1px solid rgb(18, 18, 18);
+    z-index: 5;
+}
+
+#submit {
+    height: 5rem;
+    margin-top: 9px;
+    color: white;
+    background-color: rgb(18, 18, 18);
+    font-size: 1.33rem;
+}
+menu-checkbox, menu-container, menu-content  {
+    display: none;
+}
+@media only screen and (min-device-width : 1023px) {
+    #action, form {
+        max-width: 50vw;
+    }
+}

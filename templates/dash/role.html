@@ -1,0 +1,13 @@
+{% extends 'dash/dash_base.html' %}
+
+
+<!-- ================================= CONTENT -->
+{% block content %}
+
+This is role {{id}}
+
+<a href="{{ url_for('collectives.index') }}">back to my collective</a>
+<a href="{{ url_for('dash.public_square') }}">Public Square</a>
+
+
+{% endblock %}

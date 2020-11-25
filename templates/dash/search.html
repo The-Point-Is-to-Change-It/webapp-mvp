@@ -1,0 +1,35 @@
+{% extends 'dash/dash_base.html' %}
+
+
+<!-- ================================= CONTENT -->
+{% block content %}
+
+
+<head>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dash/search.css') }}">
+    
+</head>
+
+
+search for collectives/users
+
+
+<a href="{{ url_for('collectives.profile', id=2) }}">Some collective</a>
+<a href="{{ url_for('dash.public_square') }}">Public Square</a>
+<br>
+<h1>users</h1>
+{% for user in users %}
+{{ user }}<br>
+{% endfor %}
+
+<h1>collectives</h1>
+{% for collective in collectives %}
+<h3>{{ collective.username }}</h3><br>
+@{{ collective.handle }}<br>
+
+{% endfor %}
+
+
+
+{% endblock %}

@@ -1,0 +1,26 @@
+
+
+{% extends 'dash/dash_base.html' %}
+
+
+
+<!-- ================================= CONTENT -->
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dash/account.css') }}">
+
+</head>
+
+This is your account
+
+<!-- loop through jinja variable of my collective's and each id gets passed into url_for() -->
+<a href="{{ url_for('users.collectives') }}">My collectives</a>
+<a href="{{ url_for('users.roles') }}">My roles</a>
+<a href="{{ url_for('users.tasks') }}">My tasks</a>
+<a href="{{ url_for('users.posts') }}">My public posts</a>
+<a href="{{ url_for('users.proposals') }}">My proposals</a>
+<a href="{{ url_for('users.dues') }}">My dues</a>
+<a href="{{ url_for('users.authorities') }}">My authorities</a>
+
+
+{% endblock %}

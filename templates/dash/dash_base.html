@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dash/dash_base.css') }}">
+
+
+
+{% endblock %}
+
+
+
+
+{% block main %}
+
+<nav id="navbar">
+    <a href="{{ url_for('dash.public_square') }}" id="public-square-icon">
+        <img class="nav-icon" id="parthenon" src="https://storage.googleapis.com/tpitci-static-images/parthenon-light.png" alt="public square icon">
+    </a>
+    <a href="{{ url_for('users.account') }}" id="profile-icon">
+        <img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" alt="profile icon">
+    </a>
+    <a href="{{ url_for('dash.notifications') }}" id="notifications-icon">
+        <img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/notifications-logo.svg" alt="notifications icon"> 
+    </a>
+    <a href="{{ url_for('dash.search') }}" id="search-icon">
+        <img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/search.png" alt="search icon">
+    </a>
+</nav>
+
+
+<div id="content">
+
+{% block content %}
+
+{% endblock %}
+
+</div>
+
+
+
+{% endblock %}
+
+{% block footer %}
+footer here
+{% endblock %}

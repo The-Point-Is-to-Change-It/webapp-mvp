@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+
+  <!-- ================================= HEAD -->
+  <head>
+    <title>{% block title %}{% endblock %}The Point Is to Change It</title>
+    <meta name="description" content="Build communities that reflect our highest values.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <meta name="viewport" content="width=device-width>, initial-scale=1.0">
+    <meta charset="UTF-8">
+
+
+
+    {% block head %}
+    {% endblock %}
+
+  </head>
+
+
+  <body>
+    <!-- ================================= HEADER -->
+    <header color-theme="dark">
+
+
+        <!-- ACTING CAPACITY -->
+        <a href="/users/me" id="acting-capacity">
+          <img id="acting-capacity-photo"  src="https://storage.googleapis.com/tpitci-static-images/russ.jpg" alt="acting capacity profile picture">
+          <div id="acting-capacity-info">
+            <div id="acting-capacity-name">Russell Molimock</div>
+            <div id="acting-capacity-handle">@rmolimock</div>
+            
+          </div>
+
+        </a>
+
+
+      <!-- MENU BUTTON (INVISIBLE CHECKBOX) -->
+        <input type="checkbox" id="menu-checkbox">
+        <!-- MENU BUTTON (VISIBLE) -->
+        <div id="menu">
+          
+          <span class="menu-line"></span>
+          <span class="menu-line"></span>
+          <span class="menu-line"></span>
+        </div>
+
+
+      <!-- MENU CONTENT -->
+      <div id="menu-content">
+      </div>
+
+        <!-- login or logout link -->
+        {% if context %}
+
+          {% set login_out = context.login_out %}
+
+          {% if login_out %}
+            {{ login_out }}
+          {% endif %}
+
+        {% endif %}
+
+
+      {% block header %}
+      {% endblock %}
+
+
+
+      
+
+
+
+
+        
+
+    </header>
+
+    <!-- ================================= MAIN -->
+    <main color-theme="light">
+
+      {% block main %}
+      {% endblock %}
+
+    </main>
+
+    <!-- ================================= FOOTER -->
+    <footer color-theme="dark">
+
+        {% block footer %}
+        {% endblock %}
+      
+    </footer>
+
+  </body>
+</html>

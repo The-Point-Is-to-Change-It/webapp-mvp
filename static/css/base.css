@@ -1,0 +1,92 @@
+/* ================================= CUSTOM VARIABLES */
+:root {
+    --font-small: 16px;
+    --font-medium: 18px;
+    --border-radius: 3px;
+}
+
+/* ================================= DOCUMENT LEVEL */
+html, body, *, * *, * > * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+    font-weight: lighter;
+    text-decoration: none;
+}
+body * {
+    display: flex;
+}
+body > header {
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
+}
+[color-theme="dark"] {
+    color: white;
+    background-color: rgb(18, 18, 18);
+}
+[color-theme="light"] {
+    background-color: white;
+    color: rgb(18, 18, 18);
+}
+textarea {
+    resize: none;
+    border: 1px solid rgb(222, 222, 222);
+    border-radius: var(--border-radius);
+}
+
+/* ================================= HEADER AND NAVIGATION */
+header {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem;
+    justify-content: space-between;
+}
+/* ACTING CAPACITY */
+#acting-capacity {
+    align-items: center;
+    justify-content: space-between;
+}
+#acting-capacity:visited {
+    color: white;
+}
+#acting-capacity img {
+    max-width: 42px;
+    border-radius: 50%;
+    box-sizing: content-box;
+    border: 1px solid whitesmoke;
+}
+#acting-capacity-info {
+    flex-direction: column;
+    margin-left: 9px;
+    font-size: var(--font-medium);
+}
+#acting-capacity-handle {
+    font-size: var(--font-small);
+    font-weight: normal;
+}
+
+/* ================================= MENU */
+#menu-checkbox {
+    position: absolute;
+    right: 1.4vh;
+    height: 5.5vh;
+    width: 5.5vh;
+    opacity: 0;
+}
+#menu {
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 5vh;
+    width: 5vh;
+}
+.menu-line {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+}
+#menu-content {
+    display: none;
+}

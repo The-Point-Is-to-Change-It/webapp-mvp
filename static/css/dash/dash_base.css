@@ -1,0 +1,38 @@
+/* ================================= NAVBAR */
+#navbar {
+  display: flex;
+  width: 100vw;
+  border-bottom: 1px solid rgb(99, 99, 99);
+}
+#navbar a:hover {
+    background-color: rgb(240, 240, 240);
+}
+#navbar > a {
+  height: 2.5rem;
+  width: 25vw;
+  justify-content: center;
+  padding: 7px;
+}
+.nav-icon {
+  height: 100%;
+  width: auto;
+}
+#profile-icon {
+  border-left: 1px solid rgb(99, 99, 99);
+  border-right: 1px solid rgb(99, 99, 99);
+}
+#search-icon {
+  border-left: 1px solid rgb(99, 99, 99);
+}
+main {
+  flex-direction: column;
+  width: 100vw;
+  min-height: 92vh;
+}
+#content {
+  flex-direction: column;
+  align-items: center;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  width: 100vw;
+}

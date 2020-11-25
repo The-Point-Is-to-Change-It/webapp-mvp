@@ -1,0 +1,37 @@
+{% extends 'dash/dash_base.html' %}
+
+
+<!-- ================================= CONTENT -->
+{% block content %}
+<head>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dash/public_square.css') }}">
+    
+</head>
+
+
+
+
+
+<!-- 
+ ================================= CREATE COLLECTIVE BUTTON
+<div id="create-collective-container">
+    <a href="{{ url_for('dash.create_collective') }}" >
+        <button id="create-collective-btn" class="btn-light">Create a Collective</button>
+    </a>
+</div>
+-->
+
+<header>
+    <H1>PUBLIC SQUARE</H1>
+</header>
+
+
+<!-- ================================= PUBLIC POST -->
+<form name="public-post" action="https://thepointistochangeit.com/api/post" method="POST" id="create-public-post-form">
+    
+    <textarea id="create-public-post-text" name="create-public-post-text" rows="4" cols="100" maxlength="300">share your latest achievement</textarea>
+    <input class="btn-dark" type="submit" name="submit-public-post">
+</form>
+
+{% endblock %}

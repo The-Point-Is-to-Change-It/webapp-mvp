@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+<!-- ================================= HEAD -->
+{% block head %}
+
+<meta name="keywords" content="community, freedom, democracy, productivity, collective action">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+
+{% endblock %}
+
+
+<!-- ================================= HEADER -->
+{% block header %}
+<img src="https://storage.googleapis.com/tpitci-static-images/logo-dark.png" alt="The Point Is to Change It logo">
+{% endblock %}
+
+
+<!-- ================================= CONTENT -->
+{% block main %}
+
+<div id="container">
+
+    <div id="action">
+        <div><span class="big">THIS IS THE WAY 2020 ENDS</span></div>
+        <div><span class="medium">NOT WITH A BANG,</span></div>
+        <div><span class="small">BUT A </span><span class="big">CLICK</span></div>
+    </div>
+
+    <div id="incentives">
+        <div class="bar" id="views"><div>VIEWS</div></div>
+        <div class="bar"id="likes"><div>LIKES</div></div>
+        <div class="bar" id="change"><div>CHANGE</div></div>
+    </div>
+
+    <span id="twitter-container" style="font-size:1.33rem;color:#121212;border:1px solid #121212;padding: 9px; border-radius: 3px;">
+        <a id="twitter-link" href="https://twitter.com/POINTISTOCHANGE">STAY IN THE LOOP!</a>
+    </span>
+
+</div>        
+
+{% endblock %}
