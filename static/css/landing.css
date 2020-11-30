@@ -4,12 +4,16 @@ html, body, *, * > * {
 
 /* ================================= HEADER */
 
-#menu-checkbox, #menu-lines, #menu-content, #acting-capacity-container, #menu, #menu-container {
-    display: none;
+#menu-lines, #menu-content, #menu, #menu-checkbox{
+    Display: NONE;
 }
 /* ACTING CAPACITY */
+#acting-capacity, #menu-content, #menu, #menu-checkbox, #menu-lines {
+    border: 1px solid blue;
+    opacity: 0.5;
+}
 #acting-capacity {
-    display: none;
+    Display: none;
 }
 
 /* LOGO */
@@ -165,4 +169,19 @@ menu-checkbox, menu-container, menu-content  {
     #action, form {
         max-width: 50vw;
     }
+}
+
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+HEADER header {
+    width: 100%;
+}
+header * {
+    width: auto;
+    height: 100%;
 }
