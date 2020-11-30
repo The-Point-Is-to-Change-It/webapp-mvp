@@ -6,12 +6,65 @@
 
 <!-- ================================= CONTENT -->
 {% block content %}
+
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dash/account.css') }}">
 
 </head>
 
-This is your account
+
+
+<section id="account-info">
+
+    <div class="card">
+
+        <header>
+
+          
+          <h1>Account Information</h1>
+         
+            
+
+        </header>
+
+        <div class="card-body col a-center">
+
+
+          <div class="row wide m-between">
+            <label for="email">email</label>
+          <input id="email" type="text" value="user@email.com">
+          </div>
+          
+          <div class="row wide m-between">
+            <label for="password">password</label>
+          <input id="password" type="password" value="user@email.com">
+          </div>
+
+          <div class="row wide m-between">
+            <label for="username">username</label>
+          <input id="username" type="text" value="username">
+          </div>
+
+          <div class="row wide m-between">
+            <label for="handle">handle</label>
+          <input id="handle" type="text" value="@handle">
+          </div>
+          
+        </div>
+
+        <footer class="problem">
+          <div class="row wide m-center a-center">
+            <label for="profile-pic">browse</label>
+            <a href="/users/me" class="row">
+              <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" id="post-user-pic">
+            </a>
+          </div>
+        </footer>
+
+
+
+</section>
+
 
 <!-- loop through jinja variable of my collective's and each id gets passed into url_for() -->
 <a href="{{ url_for('users.collectives') }}">My collectives</a>

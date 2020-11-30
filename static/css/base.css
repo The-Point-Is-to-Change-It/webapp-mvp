@@ -1,12 +1,49 @@
 /* ================================= CUSTOM VARIABLES */
 :root {
-    --font-small: 16px;
-    --font-medium: 18px;
-    --border-radius: 3px;
+    /* fonts */
+    --font-size-small: 14px;
+    --font-size-normal: 16px;
+    --font-size-large: 18px;
+    --font-size-larger: 24px;
+    --font-size-largest: min(11vw, 42px);
+
+    /* colors */
+    --color-lightest: white;
+    --color-lighter: rgb(249, 249, 249);
+    --color-light: rgb(240, 240, 240);
+
+    --color-neutral: rgb(199, 199, 199);
+    --color-dark: rgb(99, 99, 99);
+    --color-darker: rgb(33, 33, 33);
+    --color-darkest: rgb(18, 18, 18);
+    --color-alert: crimson;
+
+    /* borders */
+    --border-lightest: 1px solid var(--color-lightest);
+    --border-lighter: 1px solid var(--color-lighter);
+    --border-light: 1px solid var(--color-light);
+    --border-neutral: 1px solid var(--color-neutral);
+    --border-dark: 1px solid var(--color-dark);
+    --border-darker: 1px solid var(--color-darker);
+    --border-darkest: 1px solid var(--color-darkest);
+    --border-radius-card: 3px;
+    --border-radius-pic: 50%;
+
+
+    
+    /* margin and padding */
+    --margin-sm: 0.3rem;
+    --margin-normal: 0.9rem;
+    --padding-sm: 0.3rem;
+    --padding-header: 9px;
+    --padding-normal: 0.9rem;
+
+    
 }
 
 /* ================================= DOCUMENT LEVEL */
-html, body, *, * *, * > * {
+* > * {
+    display: flex;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -14,37 +51,53 @@ html, body, *, * *, * > * {
     font-weight: lighter;
     text-decoration: none;
 }
-body * {
-    display: flex;
+body, main, section {
+    flex-direction: column;
 }
-body > header {
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 1.5vh;
-    padding-bottom: 1.5vh;
+main {
+    min-height: 93vh;
 }
-[color-theme="dark"] {
-    color: white;
-    background-color: rgb(18, 18, 18);
-}
-[color-theme="light"] {
-    background-color: white;
-    color: rgb(18, 18, 18);
+head *, script {
+    display: none;
 }
 textarea {
     resize: none;
-    border: 1px solid rgb(222, 222, 222);
-    border-radius: var(--border-radius);
+    border: none;
+    border-radius: var(--border-radius-card);
+    height: 100%;
+    width: 100%;
+    padding: var(--padding-sm);
+    outline: none;
+    font-size: var(--font-size-larger);
+    color: var(--color-dark);
+}
+a {
+    text-decoration: none;
+}
+input {
+    width: 80%;
+    padding: var(--padding-sm);
+    font-size: var(--font-size-large);
+}
+
+/* ================================= THEMES */
+[color-theme="dark"] {
+    color: var(--color-lightest);
+    background-color: var(--color-darkest);
+}
+[color-theme="light"] {
+    background-color: var(--color-lightest);
+    color: var(--color-darkest);
 }
 
 /* ================================= HEADER AND NAVIGATION */
-header {
-    display: flex;
-    align-items: center;
-    padding: 0.7rem;
+body > header {
     justify-content: space-between;
+    width: 100vw;
+    padding: var(--padding-header);
 }
-/* ACTING CAPACITY */
+
+/* ================================= ACTING CAPACITY */
 #acting-capacity {
     align-items: center;
     justify-content: space-between;
@@ -56,15 +109,15 @@ header {
     max-width: 42px;
     border-radius: 50%;
     box-sizing: content-box;
-    border: 1px solid whitesmoke;
+    border: var(--border-lightest);
 }
 #acting-capacity-info {
     flex-direction: column;
     margin-left: 9px;
-    font-size: var(--font-medium);
+    font-size: var(--font-size-normal);
 }
 #acting-capacity-handle {
-    font-size: var(--font-small);
+    font-size: var(--font-size-small);
     font-weight: normal;
 }
 
@@ -90,3 +143,217 @@ header {
 #menu-content {
     display: none;
 }
+
+/* ================================= CARDS */
+.page-title {
+    margin-top: var(--margin-normal);
+    font-size: var(--font-size-largest);
+    font-weight: normal;
+}
+
+/* ================================= CARDS */
+.card {
+    /* structure
+        show info in columns,
+        center horizontally
+    */
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* sizing
+        fill small device width,
+        about half otherwise
+    */
+    width: 400px;
+    min-width: 42vw;
+    max-width: 90vw;
+    /* padding and margin */
+    margin-top: var(--margin-normal);
+    margin-bottom: var(--margin-normal);
+    /* color and font */
+    color: var(--color-darkest);
+    background-color: var(--color-lighter);
+    /* border */
+    border: var(--border-neutral);
+    border-radius: var(--border-radius-card);
+}
+.card > * {
+    /* structure */
+    flex-direction: row;
+    justify-content: space-between;
+    /* sizing */
+    width: 100%;
+    padding: var(--padding-normal);
+}
+.textarea-container {
+    padding: 0;
+}
+
+/* ================================= CARD COMPONENTS */
+
+
+
+/* ================================= CARD HEADER, FOOTER, PROFILE PICS, AND TITLES */
+.card header {
+    height: 5rem;
+}
+.card > header > * {
+    /* structure */
+    align-items: center;
+    /* sizing */
+    height: 100%;
+}
+.profile-pic {
+    /* sizing */
+    max-width: 3rem;
+    max-height: 3rem;
+    /* borders */
+    border-radius: var(--border-radius-pic);
+    /* padding and margin */
+    margin-right: var(--margin-sm);
+}
+.card > header h1 {
+    /* fonts */
+    font-size: var(--font-size-large);
+    color: var(--color-darkest);
+    font-weight: normal;
+}
+.card > header h2 {
+    /* fonts */
+    font-size: var(--font-size-small);
+    color: var(--color-darkest);
+}
+.card > header > a:hover h1 {
+    /* fonts */
+    color: var(--color-darker);
+    text-decoration: underline;
+}
+.card > header > a:hover h2 {
+    /* fonts */
+    color: var(--color-darker);
+}
+.card > .card-body {
+    background-color: var(--color-lightest);
+}
+.card-body > * {
+    margin-bottom: var(--margin-sm);
+}
+.card footer {
+    justify-content: center;
+}
+.problem {
+    font-size: var(--font-size-larg);
+    padding: var(--padding-sm);
+}
+.problem:hover{
+    background-color: var(--color-light);
+}
+
+/* ================================= GENERIC BUTTONS */
+.btn {
+    /* structure */
+    justify-content: center;
+    align-items: center;
+    /* borders */
+    border: var(--border-darker);
+    border-radius: 2px;
+    /* fonts */
+    font-size: var(--font-size-large);
+    font-weight: normal;
+    text-decoration: none;
+    /* padding and margin */
+    padding: var(--padding-sm);
+}
+.btn-lg-light {
+    /* colors and decoration*/
+    background-color: var(--color-lightest);
+    /* text and font */
+    color: var(--color-darkest);
+}
+.btn-sm-light {
+    /* text and font */
+    color: var(--color-darkest);
+    /* borders */
+}
+.btn-sm-light:hover, .btn-lg-light:hover {
+    background-color: var(--color-light);
+}
+.btn-lg-dark {
+    /* colors and decoration */
+    background-color: var(--color-darkest);
+    border: var(--color-darkest);
+    /* text and font */
+    color: var(--color-lightest);
+}
+.btn-lg-dark:hover {
+    background-color: var(--color-darker);
+}
+/* ================================= SUBMIT, ACCEPT/DENIE */
+
+.btn-submit {
+    /* sizing */
+    height: 3rem;
+    width: 400px;
+    min-width: 100%;
+    max-width: 100%;
+}
+/* ================================= UPVOTE AND DOWNVOTE */
+.btn-up-or-down-container {
+    /* structure */
+    justify-content: space-between;
+    /* sizing */
+    width: 9rem;
+}
+.btn-up-or-down-container > * {
+    /* sizing */
+    height: 100%;
+    width: 48%;
+    /* colors and decoration */
+    background-color: var(--color-lightest);
+}
+.btn-up-or-down-container *:hover {
+    /* fonts */
+    font-size: var(--font-size-normal);
+}
+
+
+
+.row {
+    flex-direction: row;
+}
+.col {
+    flex-direction: column;
+}
+.m-start {
+    justify-content: flex-start;
+}
+.m-center {
+    justify-content: center;
+}
+.m-between {
+    justify-content: space-between;
+}
+.m-around {
+    justify-content: space-around;
+}
+.m-evenly {
+    justify-content: space-evenly;
+}
+.a-center {
+    align-items: center;
+}
+.wide {
+    width: 100%;
+}
+
+/* ================================= CONTENT */
+#content {
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+

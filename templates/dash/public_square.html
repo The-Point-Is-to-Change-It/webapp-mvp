@@ -5,13 +5,15 @@
 {% block content %}
 <head>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dash/public_square.css') }}">
+    <script>
+
+      document.getElementById('public-square-icon').style.backgroundColor = "var(--color-neutral)";
+      document.getElementById('parthenon').src = "https://storage.googleapis.com/tpitci-static-images/parthenon-dark.png";
+    
+    </script>
+
     
 </head>
-
-
-
-
 
 <!-- 
  ================================= CREATE COLLECTIVE BUTTON
@@ -22,16 +24,180 @@
 </div>
 -->
 
-<header>
-    <H1>PUBLIC SQUARE</H1>
-</header>
+<H1 class="page-title">PUBLIC SQUARE</H1>
 
 
-<!-- ================================= PUBLIC POST -->
-<form name="public-post" action="https://thepointistochangeit.com/api/post" method="POST" id="create-public-post-form">
+<section>
+
+    <!-- ================================= PUBLIC POST -->
+    <form class="card" name="public-post" action="https://thepointistochangeit.com/api/post" method="POST" id="create-public-post-form">
+        <div class="card-body textarea-container">
+            <textarea name="create-public-post-text" rows="4" cols="1000" maxlength="333">share your achievements</textarea>
+        </div>
+        <footer>
+            <input class="btn btn-lg-dark btn-submit" type="submit" value="SHARE" name="submit-public-post">
+        </footer>
+
+    </form>
+
+</section>
+
+<section>
+
+
+    <div class="card post">
+
+        <header>
+
+          <a href="{{ url_for('users.account') }}" class="row">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" id="post-user-pic">
+            <div class="col m-start" >
+              <h1>Some Username</h1>
+              <h2>@userhandle</h2>
+            </div>
+          </a>
+
+          <div class="btn-up-or-down-container">
+            <div class="btn btn-up btn-sm-light"><div>&#11014;</div></div>
+            <div class="btn btn-down btn-sm-light"><div>&#11015;</div></div>
+          </div>
+
+        </header>
+
+
+
+      <div class="card-body" id="post-content">
+
+        <div id="post-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        </div>
+
+      
+      </div>
+
+
+
+      <footer class="problem">
+      
+        <div>
+            &#9873;
+        </div>
+
+      </footer>
+
+
+    </div>
+
+
+
+    <div class="card post">
+
+        <header>
+
+          <a href="/me" class="row">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" id="post-user-pic">
+            <div class="col m-start" >
+              <h1>Some Username</h1>
+              <h2>@userhandle</h2>
+            </div>
+          </a>
+
+          <div class="btn-up-or-down-container">
+            <div class="btn btn-up btn-sm-light"><div>&#11014;</div></div>
+            <div class="btn btn-down btn-sm-light"><div>&#11015;</div></div>
+          </div>
+
+        </header>
+
+
+
+      <div class="card-body" id="post-content">
+
+        <div id="post-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        </div>
+
+      
+      </div>
+
+
+
+      <footer class="problem">
+      
+        <div>
+            &#9873;
+        </div>
+
+      </footer>
+
+
+    </div>
+
+
+
+    <div class="card post">
+
+        <header>
+
+          <a href="/me" class="row">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" id="post-user-pic">
+            <div class="col m-start" >
+              <h1>Some Username</h1>
+              <h2>@userhandle</h2>
+            </div>
+          </a>
+
+          <div class="btn-up-or-down-container">
+            <div class="btn btn-up btn-sm-light"><div>&#11014;</div></div>
+            <div class="btn btn-down btn-sm-light"><div>&#11015;</div></div>
+          </div>
+
+        </header>
+
+
+
+      <div class="card-body" id="post-content">
+
+        <div id="post-text">
+            Lorem ipsum dolor sit amet.
+        </div>
+
+      
+      </div>
+
+
+
+      <footer class="problem">
+      
+        <div>
+            &#9873;
+        </div>
+
+      </footer>
+
+
+    </div>
+
+
+
+</section>
     
-    <textarea id="create-public-post-text" name="create-public-post-text" rows="4" cols="100" maxlength="300">share your latest achievement</textarea>
-    <input class="btn-dark" type="submit" name="submit-public-post">
-</form>
+    
 
+
+
+
+
+
+
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

@@ -1,37 +1,42 @@
 """
 -----------------------------
-  The Point Is to Change It
+  The Point Is to Change It | Entry Point
 -----------------------------
 
-Responsive Webapp Entry Point
-Contains:
+Entry Point Contains:
 1. bluprint registrations
 2. authenticate request
 3. error handling
+4. global helper functions
 
 """
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import (CORS, cross_origin)
-from blueprints import authenticate
-from blueprints import *
+from routes import *
+from api import *
 
 
 app = Flask(__name__)
 CORS(app, resources={r"*": {"origins": "*"}})
-app.register_blueprint(home)
-app.register_blueprint(authenticate)
+# register routes
+app.register_blueprint(landing)
 app.register_blueprint(dash)
+app.register_blueprint(users)
+app.register_blueprint(collectives)
+
+# register api endpoints
+app.register_blueprint(api)
+
+
 
 @app.before_request
 def before():
     """
-    Authenticate request
+    authenticate request before routes
     """
-    auth = Auth()
-    auth.is_valid()
+    print(request.path)
 
-        
 
 
 
@@ -59,13 +64,8 @@ def Unauthorized(error) -> str:
     return jsonify({"error": "Unauthorized"}), 401
 
 
-def build_url(endpoint):
-    # in deployment
-    return 'https://the-point-is-to-change-it-v0.uc.r.appspot.com/' + endpoint
 
 
-# in development
-# return 'http://127.0.0.1:8080/' + endpoint
 
 
 if __name__ == '__main__':
