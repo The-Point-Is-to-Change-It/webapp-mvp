@@ -1,10 +1,10 @@
 /* ================================= CUSTOM VARIABLES */
 :root {
     /* fonts */
-    --font-size-small: 14px;
-    --font-size-normal: 16px;
-    --font-size-large: 18px;
-    --font-size-larger: 24px;
+    --font-size-small: 0.8rem;
+    --font-size-normal: 1rem;
+    --font-size-large: 1.1rem;
+    --font-size-larger: 1.5rem;
     --font-size-largest: min(11vw, 42px);
 
     /* colors */
@@ -55,7 +55,7 @@ body, main, section {
     flex-direction: column;
 }
 main {
-    min-height: 93vh;
+    min-height: 100vh;
 }
 head *, script {
     display: none;
@@ -71,13 +71,24 @@ textarea {
     font-size: var(--font-size-larger);
     color: var(--color-dark);
 }
-a {
+a, a * {
     text-decoration: none;
+    color: inherit;
+}
+@-moz-document url-prefix() { 
+  a {
+     color: var(--color-lightest);
+  }
 }
 input {
-    width: 80%;
-    padding: var(--padding-sm);
+    /* sizing */
+    width: 100%;
+    height: 3rem;
+    /* fonts */
     font-size: var(--font-size-large);
+    color: var(--color-darker);
+    /* padding and margin */
+    padding: var(--padding-sm);
 }
 
 /* ================================= THEMES */
@@ -95,6 +106,7 @@ body > header {
     justify-content: space-between;
     width: 100vw;
     padding: var(--padding-header);
+    height: calc(5.5vh + 18px);
 }
 
 /* ================================= ACTING CAPACITY */
@@ -109,7 +121,6 @@ body > header {
     max-width: 42px;
     border-radius: 50%;
     box-sizing: content-box;
-    border: var(--border-lightest);
 }
 #acting-capacity-info {
     flex-direction: column;
@@ -153,10 +164,7 @@ body > header {
 
 /* ================================= CARDS */
 .card {
-    /* structure
-        show info in columns,
-        center horizontally
-    */
+    /* structure */
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -241,6 +249,9 @@ body > header {
 .card footer {
     justify-content: center;
 }
+#notifications .card footer * {
+    margin: var(--margin-sm);
+}
 .problem {
     font-size: var(--font-size-larg);
     padding: var(--padding-sm);
@@ -273,7 +284,13 @@ body > header {
 .btn-sm-light {
     /* text and font */
     color: var(--color-darkest);
-    /* borders */
+    /* colors */
+}
+.btn-sm-dark {
+    /* text and font */
+    color: var(--color-lightest);
+    /* colors */
+    background-color: var(--color-darkest);
 }
 .btn-sm-light:hover, .btn-lg-light:hover {
     background-color: var(--color-light);
@@ -285,7 +302,7 @@ body > header {
     /* text and font */
     color: var(--color-lightest);
 }
-.btn-lg-dark:hover {
+.btn-lg-dark:hover, .btn-sm-dark:hover {
     background-color: var(--color-darker);
 }
 /* ================================= SUBMIT, ACCEPT/DENIE */
@@ -296,6 +313,12 @@ body > header {
     width: 400px;
     min-width: 100%;
     max-width: 100%;
+}
+.btn-alert {
+    color: var(--color-alert);
+}
+.btn-alert:hover {
+    border: 3px solid var(--color-alert);
 }
 /* ================================= UPVOTE AND DOWNVOTE */
 .btn-up-or-down-container {
@@ -316,7 +339,11 @@ body > header {
     font-size: var(--font-size-normal);
 }
 
+.btn-up:visited, .btn:visited > *{
+    background-color: var(--color-darkest);
+    color: var(--color-lightest);
 
+}
 
 .row {
     flex-direction: row;
@@ -326,6 +353,9 @@ body > header {
 }
 .m-start {
     justify-content: flex-start;
+}
+.m-end {
+    justify-content: flex-end;
 }
 .m-center {
     justify-content: center;
@@ -345,6 +375,17 @@ body > header {
 .wide {
     width: 100%;
 }
+.row-wrap {
+    flex-flow: row wrap;
+    align-items: center;
+}
+.margin-sides-sm {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.f-icon {
+    font-size: var(--font-size-larger);
+}
 
 /* ================================= CONTENT */
 #content {
@@ -352,8 +393,18 @@ body > header {
   padding-right: 0.3rem;
   flex-direction: column;
   align-items: center;
+  margin-top: calc(7.5vh + 33px);
+}
+#collective-content {
+    z-index: 3;
+    margin-top: 0;
+    margin-top: calc(calc(7.5vh + 33px) - var(--margin-normal));;
+    border: var(--border-dark);
 }
 
 
 
-
+/* ===================================== DELETE THESE *
+/* ===================================== *
+/* ===================================== *
+/* ===================================== */

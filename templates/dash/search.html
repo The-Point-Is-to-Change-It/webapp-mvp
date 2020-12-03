@@ -1,6 +1,10 @@
 {% extends 'dash/dash_base.html' %}
 
 
+{% block title %}
+Search | 
+{% endblock %}
+
 <!-- ================================= CONTENT -->
 {% block content %}
 
@@ -8,27 +12,52 @@
 <head>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dash/search.css') }}">
+    <script>
+
+      document.getElementById('search-icon').style.backgroundColor = "var(--color-neutral)";
     
+    </script>
 </head>
 
+{% if context %}
 
-search for collectives/users
+
+{% set users = context.users %}
+{% set collectives = context.collectives %}
 
 
-<a href="{{ url_for('collectives.profile', id=2) }}">Some collective</a>
-<a href="{{ url_for('dash.public_square') }}">Public Square</a>
-<br>
-<h1>users</h1>
-{% for user in users %}
-{{ user }}<br>
-{% endfor %}
+<div class="card">
+  <input type="text" value="search">
+</div>
 
-<h1>collectives</h1>
+
+
 {% for collective in collectives %}
-<h3>{{ collective.username }}</h3><br>
-@{{ collective.handle }}<br>
+
+<div class="card">
+
+        <header>
+
+          <a href="{{ url_for('users.account') }}" class="row">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" id="post-user-pic">
+            <div class="col m-start" >
+              <h1>{{collective.username}}</h1>
+              <h2>@{{collective.handle}}</h2>
+            </div>
+          </a>
+
+          <div class="btn-up-or-down-container">
+            <div class="btn btn-up btn-sm-light wide"><div>connect</div></div>
+          </div>
+
+        </header>
+
+</div>
 
 {% endfor %}
+
+
+{% endif %}
 
 
 

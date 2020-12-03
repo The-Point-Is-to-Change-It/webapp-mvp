@@ -4,6 +4,13 @@
 <!-- ================================= CONTENT -->
 {% block content %}
 
+{% if context %}
+{% set widget_name = context.widget %}
+{% set widget = context[widget_name] %}
+
+{{ widget }}
+
+{% endif %}
 
 Some widget here
 <a href="{{ url_for('dash.public_square') }}">Public Square</a>

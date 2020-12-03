@@ -2,16 +2,33 @@
 
 {% extends 'dash/dash_base.html' %}
 
-
+{% block title %}
+Account | 
+{% endblock %}
 
 <!-- ================================= CONTENT -->
 {% block content %}
 
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dash/account.css') }}">
+    <script>
 
+      document.getElementById('profile-icon').style.backgroundColor = "var(--color-neutral)";
+    
+    </script>
 </head>
 
+
+
+<section>
+    <div class="card">
+    <header>
+        <a href="{{ url_for('dash.create_collective') }}" class="btn btn-lg-dark btn-submit">
+            Create Collective <span class="f-icon margin-sides-sm">&#x2b;&#xFE0E;</span>
+        </a>
+    </header>
+    </div>
+</section>
 
 
 <section id="account-info">
@@ -29,36 +46,50 @@
 
         <div class="card-body col a-center">
 
+          <div class="row wide m-start a-center">
+            <a href="/users/me" class="row">
+              <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" id="post-user-pic">
+            </a>
+            <label for="profile-pic">browse</label>
+          </div>
 
-          <div class="row wide m-between">
+          <div class="col wide a-center">
             <label for="email">email</label>
           <input id="email" type="text" value="user@email.com">
           </div>
+
+          <div class="col wide a-center">
+            <label for="confirm-email">confirm email</label>
+          <input id="confirm-email" type="text" value="user@email.com">
+          </div>
           
-          <div class="row wide m-between">
-            <label for="password">password</label>
-          <input id="password" type="password" value="user@email.com">
+          <div class="col wide a-center">
+            <label for="current-password">current password</label>
+          <input id="current-password" type="password" value="user@email.com">
           </div>
 
-          <div class="row wide m-between">
+          <div class="col wide a-center">
+            <label for="new-password">new password</label>
+          <input id="new-password" type="password" value="user@email.com">
+          </div>
+
+          <div class="col wide a-center">
             <label for="username">username</label>
           <input id="username" type="text" value="username">
           </div>
 
-          <div class="row wide m-between">
+          <div class="col wide a-center">
             <label for="handle">handle</label>
           <input id="handle" type="text" value="@handle">
           </div>
           
+
+          <div class="btn btn-lg-dark btn-submit">Save</div>
+
         </div>
 
-        <footer class="problem">
-          <div class="row wide m-center a-center">
-            <label for="profile-pic">browse</label>
-            <a href="/users/me" class="row">
-              <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" id="post-user-pic">
-            </a>
-          </div>
+        <footer class="col">
+          <div class="btn btn-lg-light btn-submit btn-alert">DELETE ACCOUNT PERMANENTLY</div>
         </footer>
 
 
@@ -66,8 +97,10 @@
 </section>
 
 
+
+
 <!-- loop through jinja variable of my collective's and each id gets passed into url_for() -->
-<a href="{{ url_for('users.collectives') }}">My collectives</a>
+<a href="{{ url_for('collectives.internal_dash', id=2) }}">My collective</a>
 <a href="{{ url_for('users.roles') }}">My roles</a>
 <a href="{{ url_for('users.tasks') }}">My tasks</a>
 <a href="{{ url_for('users.posts') }}">My public posts</a>

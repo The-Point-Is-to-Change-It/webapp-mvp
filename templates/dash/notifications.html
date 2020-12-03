@@ -1,17 +1,83 @@
 {% extends 'dash/dash_base.html' %}
 
+{% block title %}
+Notifications | 
+{% endblock %}
 
 <!-- ================================= CONTENT -->
+
 {% block content %}
 
 <head>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dash/notifications.css') }}">
+    <script>
+
+      document.getElementById('notifications-icon').style.backgroundColor = "var(--color-neutral)";
     
+    </script>
+
 </head>
 
-These are your notifications
-<a href="{{ url_for('dash.public_square') }}">Public Square</a>
+
+<section id="notifications">
+
+    <div class="card">
+
+        <div class="m-start row-wrap back-light card-body">
+            <div class="m-start row">
+                You've been invited into
+                <a href="/collectives/2" class="margin-sides-sm">
+                Collective Name
+                </a>
+            </div>
+            
+        </div>
+        <footer class="col">
+                <div class="btn btn-lg-dark btn-submit">ACCEPT</div>
+                <div class="btn btn-lg-light btn-submit">DENIE</div>
+        </footer>
+
+    </div>
+        
+
+    <div class="card card-body">
+
+        <div class="m-start row-wrap">
+            <div class="m-start row">
+                Your proposal in
+                <a href="/collectives/2" class="margin-sides-sm">
+                Collective Name
+                </a>
+            </div>
+            has passed
+        </div>
+
+    </div>
+
+
+
+    <div class="card card-body">
+
+        <div class="m-start row-wrap back-light">
+
+            <a href="/users/2" class="margin-sides-sm">
+                Username
+            </a>
+            created a proposal in
+            <a href="/collectives/3" class="margin-sides-sm">
+            Collective Name
+            </a>
+
+        </div>        
+
+    </div>
+
+
+</section>
+
+
+
 
 
 {% endblock %}

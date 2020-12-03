@@ -184,4 +184,5 @@ HEADER header {
 header * {
     width: auto;
     height: 100%;
+    position: static;
 }
