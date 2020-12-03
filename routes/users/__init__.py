@@ -28,40 +28,99 @@ def account():
 """
 Individual widgets for user
 """
+
+
+tmp_col = {
+    'name': 'Collective Name',
+    'handle': '@handle',
+    'description': 'Description goes here.'
+}
+tmp_role = {
+    'name': 'Role Name',
+    'handle': '@handle',
+    'description': 'Description goes here.'
+}
+tmp_auth = {
+    'date': '1-01-2021',
+    'action': 'action',
+    'granted_to': 'Collective X'
+}
+tmp_post = {
+    'content': 'This is a public post I made.',
+    'upvotes': '7',
+    'downvotes': '3'
+}
+tmp_prop = {
+    'date': '1-01-2021',
+    'description': 'I propose we do this and that.',
+    'status': 'pending',
+    'pass_condition': '50% + 1',
+    'requirement': '5',
+    'upvotes': '3',
+    'downvotes': '1'
+}
+tmp_task = {
+    'date': '1-01-2021',
+    'status': 'incomplete',
+    'description': 'Description of the task here.',
+    'assigned_by': 'Role Y of Collective X'
+}
+tmp_dues = {
+    'amount': '10',
+    'frequency': 'monthly',
+    'collective': 'Collective X'
+}
+context = {
+    'task': tmp_task,
+    'prop': tmp_prop,
+    'post': tmp_post,
+    'auth': tmp_auth,
+    'role': tmp_role,
+    'col': tmp_col,
+    'dues': tmp_dues
+}
+
 @users.route('/collectives')
 def collectives():
     """ view of my collectives widget """
-    return render_template('/dash/widget.html')
+    context['widget'] = 'col'
+    return render_template('/dash/widget.html', context=context)
 
 @users.route('/roles')
 def roles():
     """ view of my roles widget """
-    return render_template('/dash/widget.html')
+    context['widget'] = 'role'
+    return render_template('/dash/widget.html', context=context)
 
 @users.route('/posts')
 def posts():
     """ view of my public posts widget """
-    return render_template('/dash/widget.html')
+    context['widget'] = 'post'
+    return render_template('/dash/widget.html', context=context)
 
 @users.route('/tasks')
 def tasks():
     """ view of my tasks widget """
-    return render_template('/dash/widget.html')
+    context['widget'] = 'task'
+    return render_template('/dash/widget.html', context=context)
 
 @users.route('/dues')
 def dues():
     """ view of my dues widget """
-    return render_template('/dash/widget.html')
+    context['widget'] = 'dues'
+    return render_template('/dash/widget.html', context=context)
 
 @users.route('/proposals')
 def proposals():
     """ view of my proposals widget """
-    return render_template('/dash/widget.html')
+    context['widget'] = 'prop'
+    return render_template('/dash/widget.html', context=context)
 
 @users.route('/authorities')
 def authorities():
     """ view of my collectives widget """
-    return render_template('/dash/widget.html')
+    context['widget'] = 'auth'
+    return render_template('/dash/widget.html', context=context)
 
 
 """

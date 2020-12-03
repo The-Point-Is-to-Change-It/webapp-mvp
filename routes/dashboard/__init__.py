@@ -35,10 +35,13 @@ def notifications():
 @dash.route('/search', methods=['GET'], strict_slashes=False)
 def search():
     """ main notifications page for users """
-    users = {'username': 'bob', 'handle': 'bobby'}
     collectives = requests.get(build_url('api/collectives')).json()
     users = requests.get(build_url('api/users')).json()
-    return render_template('/dash/search.html', users=users, collectives=collectives)
+    context = {
+        'users': users,
+        'collectives': collectives
+    }
+    return render_template('/dash/search.html', context=context)
 
 
 @dash.route('/create_collective', methods=['GET'], strict_slashes=False)
