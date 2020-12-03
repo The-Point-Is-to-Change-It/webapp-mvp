@@ -21,3 +21,8 @@ class Base():
     def to_dict(self):
         """ return dictionary representation of object """
         return self.__dict__
+    
+    def save_to_db(self):
+        from models.storage import storage
+        storage.save_obj_to_db(self)
+    
