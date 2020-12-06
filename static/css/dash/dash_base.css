@@ -22,7 +22,7 @@
   height: 120%;
   width: auto;
 }
-#profile-icon, #roles, #posts {
+#profile-icon {
   border-left: var(--border-neutral);
   border-right: var(--border-neutral);
 }
@@ -34,22 +34,38 @@ body > header {
 }
 
 /* ================================= SUB NAVBAR */
-.sub-nav {
-    width: 100vw;
-    align-items: center;
+#sub-nav {
+    /* structure */
     justify-content: space-between;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 3;
-    height: 4rem;
-    border: var(--border-dark);
+    align-items: flex-end;
+    /* sizing */
+    width: 100vw;
+    /* borders */
+    border-bottom: var(--border-neutral);
+    /* padding and margins */
+    padding: var(--padding-normal);
+    margin-top: var(--margin-normal);
+    overflow: auto;
+    white-space: nowrap;
 }
-.sub-nav * {
-    z-index: 4;
-    padding: 7px;
-    width: 20%;
-    justify-content: center;
+.sub-nav-item {
+    /* structure */
     align-items: center;
-    height: 100%;
+    justify-content: center;
+    /* sizing */
+    width: 200px;
+    min-width: 70px;
+    max-width: 200px;
+    /* borders */
+    border: var(--border-neutral);
+    border-radius: var(--border-radius-sub-nav);
+    /* padding and margins */
+    padding: 0.5rem;
+    margin-left: var(--margin-normal);
+}
+#ideas {
+    margin-left: 0px;
+}
+.sub-nav-item:hover {
+    background-color: var(--color-lighter);
 }
