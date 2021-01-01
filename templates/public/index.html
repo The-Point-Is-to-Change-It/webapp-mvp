@@ -11,9 +11,7 @@
 
 <!-- ================================= HEADER -->
 {% block header %}
-<header id="landing-header">
-<img src="https://storage.googleapis.com/tpitci-static-images/logo-dark.png" alt="The Point Is to Change It logo">
-</header>
+
 {% endblock %}
 
 
@@ -22,10 +20,15 @@
 
 <div id="container">
 
+    {% if full_view %}
+This is the full full_view
+{% else %}
+This is NOT the full view 
+{% endif %}
     <div id="action">
         <div><span class="big">THIS IS THE WAY 2020 ENDS</span></div>
         <div><span class="medium">NOT WITH A BANG,</span></div>
-        <div><span class="small">BUT A </span><span class="big">CLICK</span></div>
+        <div><span class="small">BUT A CLICK</span></div>
     </div>
 
     <div id="incentives">
@@ -38,6 +41,78 @@
         <a id="twitter-link" href="https://twitter.com/POINTISTOCHANGE">STAY IN THE LOOP!</a>
     </span>
 
+
+    <div class="col m-center">
+
+        <div class="row m-between">
+            <div class="btn " onclick="showRegister()">Register</div>
+            or
+            <div class="btn " onclick="showLogin()">Login</div>
+
+
+        </div>
+        <!-- register -->
+        <div id="register" >
+            <form action="/auth/register" method="POST" name="register">
+                email
+            <input type="email" name="email">
+            password
+            <input type="password" name="password">
+            username
+            <input type="text" name="name">
+            handle
+            <input type="text" name="handle">
+            <input type="submit">
+            
+            </form>
+        </div>
+
+        <!-- login -->
+        <div id="login" onclick="showLogin()" class="hide">
+            <form action="/auth/login" method="POST" name="login">
+                email
+            <input type="email" name="email">
+            password
+            <input type="password" name="password">
+            <input type="submit">
+            
+            </form>
+        </div>  
+        <a href=" {{ url_for('dash.public_square') }}">preview</a>
+
+    </div>
+
 </div>        
 
+
+<head>
+    <script>
+    
+        
+        var register = document.getElementById("register");
+        var login = document.getElementById("login");
+
+        function showRegister() {
+            
+            register.classList.remove("hide");
+            register.classList.add("show");
+
+            login.classList.add("hide");
+            login.classList.remove("show");
+
+        };
+        
+
+        function showLogin() {
+            
+            login.classList.remove("hide");
+            login.classList.add("show");
+
+            register.classList.add("hide");
+            register.classList.remove("show");
+
+        }
+    
+    </script>
+</head>
 {% endblock %}

@@ -12,6 +12,21 @@ Collective |
 <!-- ================================= CONTENT -->
 {% block content %}
 
+{% if data %}
+
+    {% if data.current_user %}
+        {% set current_user = data.current_user %}
+    {% endif %}
+
+    {% if data.user %}
+        {% set user = data.user %}
+    {% endif %}
+
+    {% if data.full_view %}
+        {% set full_view = data.full_view %}
+    {% endif %}
+
+{% endif %}
 
 <section id="collective-info">
 
@@ -19,11 +34,11 @@ Collective |
 
         <header>
 
-          <a href="{{ url_for('users.account') }}" class="row">
+          <a href="{{ url_for('users.profile') }}" class="row">
             <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/collective.jpg" id="post-user-pic">
             <div class="col m-start" >
-              <h1>Collective X</h1>
-              <h2>@handle-x</h2>
+              <h1>{{ user.name }}</h1>
+              <h2>@{{ user.handle }}</h2>
             </div>
           </a>
 

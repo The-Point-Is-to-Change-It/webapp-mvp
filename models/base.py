@@ -26,3 +26,30 @@ class Base():
         from models.storage import storage
         storage.save_obj_to_db(self)
     
+    def delete_from_db(self):
+        """ delete this object from db """
+        from models.storage import storage
+        storage.delete_from_db(self)
+    
+    @classmethod
+    def delete_from_db_with_dict(cls, dict_repr):
+        """ delete this object from db """
+        from models.storage import storage
+        storage.delete_from_db_with_dict(cls, dict_repr)
+    
+    @classmethod
+    def get_all(cls):
+        """ retrieve objects of same class """
+        from models.storage import storage
+        return storage.get_all(cls)
+    
+    @classmethod
+    def get_by_cls_and_attr(cls, attr, val):
+        from models.storage import storage
+        return storage.get_by_cls_and_attr(cls, attr, val)
+    
+    @classmethod
+    def update_attr_by_id(cls, id, attr, value):
+        from models.storage import storage
+        return storage.update_attr_by_id(cls, id, attr, value)
+    

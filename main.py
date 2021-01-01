@@ -11,22 +11,34 @@ Entry Point Contains:
 
 """
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, json, abort, g
 from flask_cors import (CORS, cross_origin)
 from routes import *
 from api import *
+from os import environ
+from uuid import uuid4
+import requests
 
 
+# initiate flask app and secret key
 app = Flask(__name__)
+if "FLASK_SECRET_KEY" in environ:
+    app.secret_key = environ["FLASK_SECRET_KEY"]
+else:
+    environ["FLASK_SECRET_KEY"] = str(uuid4())
+
+# cors protection
 CORS(app, resources={r"*": {"origins": "*"}})
+
 # register routes
 app.register_blueprint(landing)
 app.register_blueprint(dash)
 app.register_blueprint(users)
 app.register_blueprint(collectives)
+app.register_blueprint(auth)
 
 # register api endpoints
-app.register_blueprint(api)
+app.register_blueprint(api_v1)
 
 
 
@@ -35,9 +47,24 @@ def before():
     """
     authenticate request before routes
     """
-    print(request.path)
+    from models.auth import Auth
+    # isolate requested route from url
+    request.full_view, request.current_user = Auth.authenticate(request.url)
+    
+    
+    
 
 
+
+
+
+
+@app.errorhandler(400)
+def bad_request(error) -> str:
+    """
+    Request is bad
+    """
+    return jsonify({"error": "Bad Request, https required"}), 400
 
 
 @app.errorhandler(404)

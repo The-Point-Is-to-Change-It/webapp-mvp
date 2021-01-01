@@ -10,156 +10,354 @@ Collective Name |
 {% block content %}
 
 
+
+
+
+
         
+<div class="row a-center">
+    <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/collective.jpg" id="post-user-pic">
 <div class="col">
-        <h1 class="page-title" > Collective Name</h1>
-        <h3>@collectivehandle</h3>
+        <h1 class="page-title" >{{ user.name }}</h1>
+        <h3>@{{ user.handle }}</h3>
+</div>
 </div>
 
+<nav class="row" id="sub-nav">
 
-<section class="col" id="collective-content">
+    <div class="sub-nav-item btn-submit" id="props-nav" onclick="showProps()">PROPS</div>
+    <div class="sub-nav-item btn-submit" id="tasks-nav" onclick="showTask()">TASKS</div>
+    <div class="sub-nav-item btn-submit" id="roles-nav" onclick="showRoles()">ROLES</div>
+    <div class="sub-nav-item btn-submit" id="posts-nav">POSTS</div>
+    <div class="sub-nav-item btn-submit" id="dues-nav">DUES</div>
+    <div class="sub-nav-item btn-submit" id="members-nav">MEMBERS</div>
 
-    <nav class="row" id="sub-nav">
+</nav>
 
-        <div class="sub-nav-item" id="ideas">IDEAS</div>
-        <div class="sub-nav-item" id="tasks">TASKS</div>
-        <div class="sub-nav-item" id="roles">ROLES</div>
-        <div class="sub-nav-item" id="posts">POSTS</div>
-        <div class="sub-nav-item" id="dues">DUES</div>
-        <div class="sub-nav-item" id="members">MEMBERS</div>
 
-    </nav>
+
+<section class="col-tabs" id="props">
+
+
+    <div class="card">
+        <header>
+          <div class="btn btn-lg-dark btn-submit">&#128161;&#xFE0E;  Create Proposal</div>
+        </header>
+    </div>
+    <br>
+    <h2>PROPOSALS</h2>
+
+    <div class="card post">
+
+        <header>
+
+          <a href="/me" class="row a-center">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/user.svg" id="post-user-pic">
+            <div class="col m-start" >
+              <h1>Username</h1>
+              <h2>@handle</h2>
+            </div>
+          </a>
+
+          <div>
+              <h3 class="pending">PENDING</h3>
+          </div>
+
+        </header>
+
+      <div class="card-body col m-between">
+
+        <div class="prop-description col">
+            <h1 class="card-sub-h">Description:</h1>
+            Here users can explain why they're proposing what they are.
+        </div>
+        <hr class="wide">
+        <div class="prop-actions col">
+            <h1 class="card-sub-h">Actions</h1>
+            This is an automated list of exactly what will be enacted if this passes.<br>
+        </div>
+        <hr class="wide">
+        <div class="pass-conditions m-between row wide">
+            <div class="col">
+                <h2 class="card-sub-h">Pass Conditions</h2>
+                <h3>Membership - 50% + 1 </h3>
+            </div>
+            <div class="col">
+                <h2 class="card-sub-h">Status:</h2>
+                <h3 class="pending">1/5</h3>
+            </div>
+            
+        </div>
+        <hr class="wide">
+      
+      </div>
+
+
+      <footer>
+      
+        <div class="row m-between wide">
+
+            <div class="btn btn-lg-dark wide">Approve</div>
+            <div class="btn btn-lg-light wide">Deny</div>
+
+        </div>
+
+      </footer>
+
+
+    </div>
+
+
+
+
+
+    <div class="card post">
+
+        <header>
+
+          <a href="/me" class="row a-center">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/russ.jpg" id="post-user-pic">
+            <div class="col m-start" >
+              <h1>Username</h1>
+              <h2>@userhandle</h2>
+            </div>
+          </a>
+
+          <div>
+              <h3 class="approved">APROVED</h3>
+          </div>
+
+        </header>
+
+      <div class="card-body col m-between">
+
+        <div class="prop-description col">
+            <h1 class="card-sub-h">Description:</h1>
+            Here users can explain why they're proposing what they are.
+        </div>
+        <hr class="wide">
+        <div class="prop-actions col">
+            <h1 class="card-sub-h">Actions</h1>
+            This is an automated list of exactly what will be enacted if this passes.<br>
+        </div>
+        <hr class="wide">
+        <div class="pass-conditions m-between row wide">
+            <div class="col">
+                <h2 class="card-sub-h">Pass Conditions</h2>
+                <h3>Membership - 50% + 1 </h3>
+            </div>
+            <div class="col">
+                <h2 class="card-sub-h">Status:</h2>
+                <h3 class="approved">3/5</h3>
+            </div>
+            
+        </div>
+        <hr class="wide">
+      
+      </div>
+
+    </div>
+
+
+
+    <div class="card post">
+
+        <header>
+
+          <a href="/me" class="row a-center">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/user.svg" id="post-user-pic">
+            <div class="col m-start" >
+              <h1>Username</h1>
+              <h2>@userhandle</h2>
+            </div>
+          </a>
+
+          <div>
+              <h3 class="denied">DENIED</h3>
+          </div>
+
+        </header>
+
+      <div class="card-body col m-between">
+
+        <div class="prop-description col">
+            <h1 class="card-sub-h">Description:</h1>
+            Here users can explain why they're proposing what they are.
+        </div>
+        <hr class="wide">
+        <div class="prop-actions col">
+            <h1 class="card-sub-h">Actions</h1>
+            This is an automated list of exactly what will be enacted if this passes.<br>
+        </div>
+        <hr class="wide">
+        <div class="pass-conditions m-between row wide">
+            <div class="col">
+                <h2 class="card-sub-h">Pass Conditions</h2>
+                <h3>Team Lead Approval </h3>
+            </div>
+            <div class="col">
+                <h2 class="card-sub-h">Status:</h2>
+                <h3 class="denied">denied</h3>
+            </div>
+            
+        </div>
+        <hr class="wide">
+      
+      </div>
+
+    </div>
+
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<!-- ================================= TASKS -->
+
+<section id="tasks">
+
+<div class="card">
+        <header>
+          <div class="btn btn-lg-dark btn-submit"> 📝 Create Task</div>
+        </header>
+    </div>
+    <br>
+    <h2>TASKS</h2>
+
+    <div class="card post">
+
+        <header>
+
+          <a href="/me" class="row a-center">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/russ.jpg" id="post-user-pic">
+            <div class="col m-start" >
+              <h1>Russell Molimock</h1>
+              <h2>@rmolimock</h2>
+            </div>
+          </a>
+
+          <div>
+              <h3 class="pending">INCOMPLETE</h3>
+          </div>
+
+        </header>
+
+      <div class="card-body col m-between">
+
+        <div class="task-description col">
+            <h1 class="card-sub-h">Descrition:</h1>
+            For the minimally viable product, users will simply describe the task in a text field. In the future this will become much more fully featured and useful.
+        </div>
+        <hr class="wide">
+        <div class="task-due-date col">
+            <h1 class="card-sub-h">Due Date:</h1>
+            <h3 class="pending">01-01-2021</h3>
+        </div>
+        <hr class="who-can-approve wide">
+        <div class="col">
+            <h1 class="card-sub-h">Who Can Approve:</h1>
+            
+            <a href="/me" class="row a-center">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/user.svg" id="post-user-pic">
+            <div class="col m-start" >
+              <h3>Username</h3>
+              @userhandle
+            </div>
+          </a>
+          
+        </div>
+      </div>
+
+
+      <footer>
+      
+        <div class="row m-between wide">
+
+            <div class="btn btn-lg-dark wide">Mark Complete</div>
+
+        </div>
+
+      </footer>
+
+
+    </div>
 
     
 
-    <div class="card">
+
+
+
+    <div class="card post">
 
         <header>
-
             
+          <a href="/me" class="row a-center">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/user.svg" id="post-user-pic">
+            <div class="col m-start" >
+              <h1>Username</h1>
+              <h2>@handle</h2>
+            </div>
+          </a>
+
+          <div>
+              <h3 class="approved">SUBMITTED</h3>
+          </div>
 
         </header>
 
-        <div class="card-body">
+      <div class="card-body col m-between">
+
+        <div class="task-description col">
+            <h1 class="card-sub-h">Descrition:</h1>
+            Assigner describes the task here... Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sut.
+        </div>
+        <hr class="wide">
+        <div class="task-due-date col">
+            <h1 class="card-sub-h">Due Date:</h1>
+            <h3 class="pending">01-01-2021</h3>
+        </div>
+        <hr class="who-can-approve wide">
+        <div class="col">
+            <h1 class="card-sub-h">Who Can Approve:</h1>
+            
+            <a href="/me" class="row a-center a-center">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/russ.jpg" id="post-user-pic">
+            <div class="col m-start" >
+              <h3>Russell Molimock</h3>
+              @rmolimock
+            </div>
+          </a>
+          
+        </div>
+      </div>
+
+
+      <footer>
+      
+        <div class="row m-between wide">
+
+            <div class="btn btn-lg-dark wide">Approve</div>
+            <div class="btn btn-lg-light wide">Deny</div>
 
         </div>
 
-        <footer></footer>
+      </footer>
 
 
     </div>
 
-
-    <div class="card">
-
-        <header>
-
-            
-
-        </header>
-
-        <div class="card-body">
-
-        </div>
-
-        <footer></footer>
-
-
-    </div>
-
-
-    <div class="card">
-
-        <header>
-
-            
-
-        </header>
-
-        <div class="card-body">
-
-        </div>
-
-        <footer></footer>
-
-
-    </div>
-
-
-
-    <div class="card">
-
-        <header>
-
-            
-
-        </header>
-
-        <div class="card-body">
-
-        </div>
-
-        <footer></footer>
-
-
-    </div>
-
-
-
-    <div class="card">
-
-        <header>
-
-            
-
-        </header>
-
-        <div class="card-body">
-
-        </div>
-
-        <footer></footer>
-
-
-    </div>
-
-
-
-    <div class="card">
-
-        <header>
-
-            
-
-        </header>
-
-        <div class="card-body">
-
-        </div>
-
-        <footer></footer>
-
-
-    </div>
-
-
-
-    <div class="card">
-
-        <header>
-
-            
-
-        </header>
-
-        <div class="card-body">
-
-        </div>
-
-        <footer></footer>
-
-
-    </div>
 
 
 
@@ -172,4 +370,91 @@ Collective Name |
 
 
 
+
+
+
+
+
+<section id="roles">
+    Roles Section
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+
+    <script>
+        document.getElementById("props-nav").style.backgroundColor = "var(--color-light)";
+        var tasks = document.getElementById("tasks");
+        tasks.classList.add("hide");
+        var roles = document.getElementById("roles");
+        roles.classList.add("hide");
+
+    
+        function showTask() {
+        var props = document.getElementById("props");
+        var tasks = document.getElementById("tasks");
+        var roles = document.getElementById("roles");
+
+        document.getElementById("tasks-nav").style.backgroundColor = "var(--color-light)";
+        tasks.classList.remove("hide");
+        tasks.classList.add("show");
+
+        props.classList.add("hide");
+        props.classList.remove("show");
+        roles.classList.add("hide");
+        roles.classList.remove("show");
+        document.getElementById("props-nav").style.backgroundColor = "var(--color-lightest)";
+        document.getElementById("roles-nav").style.backgroundColor = "var(--color-lightest)";
+        };
+
+        function showProps() {
+        var props = document.getElementById("props");
+        var tasks = document.getElementById("tasks");
+        var roles = document.getElementById("roles");
+
+        tasks.classList.remove("show");
+        tasks.classList.add("hide");
+        roles.classList.remove("show");
+        roles.classList.add("hide");
+
+        document.getElementById("props-nav").style.backgroundColor = "var(--color-light)";
+        props.classList.add("show");
+        props.classList.remove("hide");
+
+        document.getElementById("tasks-nav").style.backgroundColor = "var(--color-lightest)";
+        document.getElementById("roles-nav").style.backgroundColor = "var(--color-lightest)";
+        };
+
+        function showRoles() {
+        var props = document.getElementById("props");
+        var tasks = document.getElementById("tasks");
+        var roles = document.getElementById("roles");
+
+        roles.classList.remove("hide");
+        roles.classList.add("show");
+        document.getElementById("roles-nav").style.backgroundColor = "var(--color-light)";
+
+        props.classList.add("hide");
+        props.classList.remove("show");
+        tasks.classList.remove("show");
+        tasks.classList.add("hide");
+        
+        document.getElementById("tasks-nav").style.backgroundColor = "var(--color-lightest)";
+        document.getElementById("props-nav").style.backgroundColor = "var(--color-lightest)";
+        };
+
+
+    </script>
+
+</head>
 {% endblock %}

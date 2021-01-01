@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dash/dash_base.css') }}">
 
 
+    
+
 
 {% endblock %}
 
@@ -15,18 +17,29 @@
 
 {% block main %}
 
+
+<!-- JINJA SETUP HERE -->
+
+
+
+
 <nav class="navbar">
     <a href="{{ url_for('dash.public_square') }}" id="public-square-icon">
-        <img class="nav-icon" id="parthenon" src="https://storage.googleapis.com/tpitci-static-images/parthenon-light.png" alt="public square icon">
+        <img class="nav-icon" id="parthenon" src="https://storage.googleapis.com/tpitci-static-images/public-sq-wht.svg" alt="public square icon">
     </a>
-    <a href="{{ url_for('users.account') }}" id="profile-icon">
-        <img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" alt="profile icon">
+
+{% if current_user %}
+
+    <a href="{{ url_for('users.profile') }}" id="profile-icon">
+        <img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/user.svg" alt="profile icon">
     </a>
     <a href="{{ url_for('dash.notifications') }}" id="notifications-icon">
-        <img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/notify-logo.svg" alt="notifications icon">
+        <img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/noti-rnd.svg" alt="notifications icon">
     </a>
+{% endif %}
+
     <a href="{{ url_for('dash.search') }}" id="search-icon">
-        <img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/search.png" alt="search icon">
+        <img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/search.svg" alt="search icon">
     </a>
 </nav>
 
@@ -44,5 +57,6 @@
 {% endblock %}
 
 {% block footer %}
-footer here
+<a href="https://drive.google.com/drive/folders/1-uKiI99_lV9F5-I9fDDad-xw-sS2Uzv7?usp=sharing">Community Enterprise</a>
+
 {% endblock %}

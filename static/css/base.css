@@ -17,6 +17,9 @@
     --color-darker: rgb(33, 33, 33);
     --color-darkest: rgb(18, 18, 18);
     --color-alert: crimson;
+    --color-approved: DarkOliveGreen;
+    --color-pending: #a17f1a;
+    --color-denied: var(--color-alert);
 
     /* borders */
     --border-lightest: 1px solid var(--color-lightest);
@@ -107,6 +110,7 @@ input {
 /* ================================= HEADER AND NAVIGATION */
 body > header, body > footer {
     justify-content: space-between;
+    align-items: center;
     width: 100vw;
     padding: var(--padding-header);
     height: calc(5.5vh + 18px);
@@ -214,11 +218,20 @@ body > header, body > footer {
     /* sizing */
     height: 100%;
 }
+.logo-container {
+    height: 100%;
+    width: 100%;
+}
+.logo {
+    max-width: auto;
+    max-height: 100%;
+}
 .profile-pic {
     /* sizing */
-    max-width: 3rem;
-    max-height: 3rem;
+    max-width: 3.5rem;
+    max-height: 3.5rem;
     /* borders */
+    border: var(--border-light);
     border-radius: var(--border-radius-pic);
     /* padding and margin */
     margin-right: var(--margin-sm);
@@ -242,6 +255,9 @@ body > header, body > footer {
 .card > header > a:hover h2 {
     /* fonts */
     color: var(--color-darker);
+}
+.c-h {ard-sub
+    font-weight: normal;
 }
 .card > .card-body {
     background-color: var(--color-lightest);
@@ -314,6 +330,7 @@ body > header, body > footer {
     /* sizing */
     height: 3rem;
     width: 400px;
+    /* should always be inside cards */
     min-width: 100%;
     max-width: 100%;
 }
@@ -347,7 +364,24 @@ body > header, body > footer {
     color: var(--color-lightest);
 
 }
-
+.pending {
+    color: var(--color-pending);
+    font-weight: normal;
+}
+.approved {
+    color: var(--color-approved);
+    font-weight: normal;
+}
+.denied {
+    color: var(--color-denied);
+    font-weight: normal;
+}
+.hide {
+    display: none;
+}
+.show {
+    display: flex;
+}
 .row {
     flex-direction: row;
 }
@@ -375,6 +409,12 @@ body > header, body > footer {
 .a-center {
     align-items: center;
 }
+.a-start {
+    align-items: flex-start;
+}
+.a-end {
+    align-items: flex-end;
+}
 .wide {
     width: 100%;
 }
@@ -388,6 +428,9 @@ body > header, body > footer {
 }
 .f-icon {
     font-size: var(--font-size-larger);
+}
+.und:hover {
+    text-decoration: underline;
 }
 
 /* ================================= CONTENT */

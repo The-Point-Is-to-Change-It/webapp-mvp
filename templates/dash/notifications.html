@@ -22,17 +22,30 @@ Notifications |
 
 <section id="notifications">
 
+    {% if current_user %}
+    {{ current_user }}
+    {% endif %}
+    {% if full_view %}
+    {{ full_view }}
+    {% endif %}
     <div class="card">
 
-        <div class="m-start row-wrap back-light card-body">
-            <div class="m-start row">
-                You've been invited into
-                <a href="/collectives/2" class="margin-sides-sm">
-                Collective Name
+        <header class="m-between row-wrap back-light">
+
+                <a href="{{ url_for('collectives.profile', id=2) }}" class="margin-sides-sm und row">
+                    <img src="https://storage.googleapis.com/tpitci-static-images/collective.jpg" class="profile-pic">
+                    <div class="col">
+                        <h4>Group Name</h4>
+                        <h4>@handle</h4>
+                    </div>
                 </a>
-            </div>
-            
+        </header>
+
+        <div class="card-body m-center">
+                <h3>has invited you to join them.</h3>
+
         </div>
+            
         <footer class="col">
                 <div class="btn btn-lg-dark btn-submit">ACCEPT</div>
                 <div class="btn btn-lg-light btn-submit">DENIE</div>
@@ -46,8 +59,8 @@ Notifications |
         <div class="m-start row-wrap">
             <div class="m-start row">
                 Your proposal in
-                <a href="/collectives/2" class="margin-sides-sm">
-                Collective Name
+                <a href="{{ url_for('collectives.internal_dash', id=2) }}" class="margin-sides-sm und">
+                My Group Name
                 </a>
             </div>
             has passed
@@ -61,12 +74,12 @@ Notifications |
 
         <div class="m-start row-wrap back-light">
 
-            <a href="/users/2" class="margin-sides-sm">
+            <a href="/users/2" class="margin-sides-sm und">
                 Username
             </a>
-            created a proposal in
-            <a href="/collectives/3" class="margin-sides-sm">
-            Collective Name
+            was nominated for <span class="und">Role Name</span>
+            <a href="{{ url_for('collectives.internal_dash', id=2) }}" class="margin-sides-sm und">
+            My Group Name
             </a>
 
         </div>        

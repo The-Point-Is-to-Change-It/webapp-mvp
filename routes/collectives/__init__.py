@@ -9,7 +9,7 @@ Routes - collectives Contains:
 
 """
 
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, url_for
 
 collectives = Blueprint("collectives", __name__, url_prefix="/collectives")
 
@@ -17,16 +17,16 @@ collectives = Blueprint("collectives", __name__, url_prefix="/collectives")
 @collectives.route('/', methods=['GET'], strict_slashes=False)
 def index():
     """ browse all collectives  """
-    return redirect('dashboard.search')
+    return redirect(url_for('dash.search'))
 
 
-@collectives.route('/', methods=['GET'], strict_slashes=False)
+@collectives.route('/<id>', methods=['GET'], strict_slashes=False)
 def profile(id):
     """ view a collective's public page """
     return render_template('/dash/public_profile.html')
 
 
-@collectives.route('/<id>/2', methods=['GET'], strict_slashes=False)
+@collectives.route('/auth/<id>', methods=['GET'], strict_slashes=False)
 def internal_dash(id):
     """ view a collective's internal dashboard  """
     return render_template('/private/collective.html')
@@ -35,5 +35,4 @@ def internal_dash(id):
 @collectives.route('/auth/<col_id>/roles/<role_id>', methods=['GET'], strict_slashes=False)
 def role(col_id, role_id):
     """ role within a collective's internal page """
-    print('this is the role link')
     return render_template('/dash/role.html')

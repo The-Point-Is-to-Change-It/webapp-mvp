@@ -9,13 +9,28 @@
     <meta name="viewport" content="width=device-width" initial-scale=1.0">
     <meta charset="UTF-8">
 
-
+    
 
     {% block head %}
     {% endblock %}
 
   </head>
 
+  {% if data %}
+
+    {% if data.current_user %}
+        {% set current_user = data.current_user %}
+    {% endif %}
+
+    {% if data.user %}
+        {% set user = data.user %}
+    {% endif %}
+
+    {% if data.full_view %}
+        {% set full_view = data.full_view %}
+    {% endif %}
+
+{% endif %}
 
   <body>
     <!-- ================================= HEADER -->
@@ -23,16 +38,23 @@
 
 
         <!-- ACTING CAPACITY -->
-        <a href="/users/me" id="acting-capacity">
+        {% if current_user %}
+        <a href="{{ url_for('users.profile') }}" id="acting-capacity">
           <img class="profile-pic" id="acting-capacity-photo"  src="https://storage.googleapis.com/tpitci-static-images/russ.jpg" alt="acting capacity profile picture">
           <div id="acting-capacity-info">
-            <div id="acting-capacity-name">Russell Molimock</div>
-            <div id="acting-capacity-handle">@rmolimock</div>
-            
+            <div id="acting-capacity-name">{{ current_user.name }}</div>
+            <div id="acting-capacity-handle">@{{ current_user.handle }}</div>
           </div>
 
         </a>
 
+          <a href="{{ url_for('auth.logout') }}">logout</a>
+
+        {% else %}
+        <a class="logo-container" href="{{ url_for('landing.index') }}">
+            <img class="logo" src="https://storage.googleapis.com/tpitci-static-images/logo-dark.png" alt="The Point Is to Change It logo">
+        </a>
+        {% endif %}
 
       <!-- MENU BUTTON (INVISIBLE CHECKBOX) -->
         <input type="checkbox" id="menu-checkbox">
@@ -47,6 +69,7 @@
 
       <!-- MENU CONTENT -->
       <div id="menu-content">
+          
       </div>
 
         <!-- login or logout link -->
@@ -79,6 +102,9 @@
     <main color-theme="light">
 
       {% block main %}
+      <body>
+          
+      </body>
       {% endblock %}
 
     </main>
@@ -87,6 +113,7 @@
     <footer color-theme="dark">
 
         {% block footer %}
+        
         {% endblock %}
       
     </footer>

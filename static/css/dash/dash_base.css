@@ -11,12 +11,15 @@
 }
 .navbar > a {
   height: 2rem;
-  width: 25vw;
+  width:50%;
+  max-width: 50vw;
   justify-content: center;
   align-items: center;
   padding: 7px;
-  font-size: var(--font-size-large);
   background-color: var(--color-lighter);
+}
+.navbar > a > img {
+    height: 1.9rem;
 }
 .nav-icon {
   height: 120%;
@@ -45,6 +48,7 @@ body > header {
     /* padding and margins */
     padding: var(--padding-normal);
     margin-top: var(--margin-normal);
+    margin-bottom: var(--margin-normal);
     overflow: auto;
     white-space: nowrap;
 }
@@ -54,16 +58,18 @@ body > header {
     justify-content: center;
     /* sizing */
     width: 200px;
-    min-width: 70px;
+    min-width: 89px;
     max-width: 200px;
-    /* borders */
-    border: var(--border-neutral);
+    /* borders and colors */
+    border: var(--border-dark);
     border-radius: var(--border-radius-sub-nav);
     /* padding and margins */
     padding: 0.5rem;
     margin-left: var(--margin-normal);
+    /* fonts */
+    font-weight: normal;
 }
-#ideas {
+#props-nav {
     margin-left: 0px;
 }
 .sub-nav-item:hover {

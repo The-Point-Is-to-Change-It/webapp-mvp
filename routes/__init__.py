@@ -13,6 +13,7 @@ from routes.landing import *
 from routes.dashboard import *
 from routes.users import *
 from routes.collectives import *
+from routes.authenticate import *
 
 
 

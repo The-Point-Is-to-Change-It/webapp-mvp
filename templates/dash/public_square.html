@@ -11,7 +11,6 @@ Public Square |
     <script>
 
       document.getElementById('public-square-icon').style.backgroundColor = "var(--color-neutral)";
-      document.getElementById('parthenon').src = "https://storage.googleapis.com/tpitci-static-images/parthenon-dark.png";
     
     </script>
 
@@ -26,6 +25,7 @@ Public Square |
     </a>
 </div>
 -->
+
 
 
 
@@ -51,8 +51,8 @@ Public Square |
 
         <header>
 
-          <a href="{{ url_for('users.account') }}" class="row">
-            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" id="post-user-pic">
+          <a href="{{ url_for('users.profile') }}" class="row wide">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/user.svg" id="post-user-pic">
             <div class="col m-start" >
               <h1>Some Username</h1>
               <h2>@userhandle</h2>
@@ -97,10 +97,10 @@ Public Square |
 
         <header>
 
-          <a href="/me" class="row">
-            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" id="post-user-pic">
+          <a href="/me" class="row wide">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/user.svg" id="post-user-pic">
             <div class="col m-start" >
-              <h1>Some Username</h1>
+              <h1>Some Group</h1>
               <h2>@userhandle</h2>
             </div>
           </a>
@@ -148,8 +148,8 @@ Public Square |
 
         <header>
 
-          <a href="/me" class="row">
-            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" id="post-user-pic">
+          <a href="/me" class="row wide">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/user.svg" id="post-user-pic">
             <div class="col m-start" >
               <h1>Some Username</h1>
               <h2>@userhandle</h2>
@@ -201,5 +201,3 @@ Public Square |
 
 {% endblock %}
 
-{% block footer %}
-{% endblock %}

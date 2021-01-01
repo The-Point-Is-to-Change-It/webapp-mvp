@@ -11,10 +11,10 @@ API Contains:
 from flask import Blueprint, render_template, jsonify
 
 
-api = Blueprint("api", __name__, url_prefix="/api")
+api_v1 = Blueprint("api", __name__, url_prefix="/api")
 
 
-@api.route('/', methods=['GET'], strict_slashes=False)
+@api_v1.route('/', methods=['GET'], strict_slashes=False)
 def index():
     return jsonify({'Status': 'OK'}), 200
 

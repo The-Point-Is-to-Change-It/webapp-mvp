@@ -16,4 +16,4 @@ landing = Blueprint("landing", __name__, url_prefix="")
 @landing.route('/', methods=['GET'], strict_slashes=False)
 def index():
     """ public landing page """
-    return render_template('/public/index.html')
+    return render_template('/public/index.html', data={'user': 'landing'})

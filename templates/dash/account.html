@@ -19,6 +19,16 @@ Account |
 </head>
 
 
+        
+
+  <div class="row a-center">
+    <img class="profile-pic" id="profile-pic"  src="https://storage.googleapis.com/tpitci-static-images/russ.jpg" alt="your profile picture">
+    <div class="col">
+        <h1 class="page-title" >{{ current_user.name }}</h1>
+        <h3>@{{ current_user.handle }}</h3>
+    </div>
+  </div>
+
 
 <section>
     <div class="card">
@@ -44,46 +54,50 @@ Account |
 
         </header>
 
+
         <div class="card-body col a-center">
 
           <div class="row wide m-start a-center">
             <a href="/users/me" class="row">
-              <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" id="post-user-pic">
+              <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/user2x.png" id="post-user-pic">
             </a>
-            <label for="profile-pic">browse</label>
+            <label for="post-user-pic">browse</label>
           </div>
 
           <div class="col wide a-center">
             <label for="email">email</label>
-          <input id="email" type="text" value="user@email.com">
+          <input id="email" type="text" value="">
           </div>
 
           <div class="col wide a-center">
             <label for="confirm-email">confirm email</label>
-          <input id="confirm-email" type="text" value="user@email.com">
+          <input id="confirm-email" type="text" value="">
           </div>
           
           <div class="col wide a-center">
             <label for="current-password">current password</label>
-          <input id="current-password" type="password" value="user@email.com">
+          <input id="current-password" type="password" value="">
           </div>
 
           <div class="col wide a-center">
             <label for="new-password">new password</label>
-          <input id="new-password" type="password" value="user@email.com">
+          <input id="new-password" type="password" value="">
           </div>
 
           <div class="col wide a-center">
             <label for="username">username</label>
-          <input id="username" type="text" value="username">
+          <input id="username" type="text" value="">
           </div>
 
           <div class="col wide a-center">
             <label for="handle">handle</label>
-          <input id="handle" type="text" value="@handle">
+            <div class="row wide">
+                <div class="btn btn-sm-dark">@</div>
+                <input id="handle" type="text" value="">
+              </div>
           </div>
           
-
+<hr>
           <div class="btn btn-lg-dark btn-submit">Save</div>
 
         </div>
@@ -92,21 +106,13 @@ Account |
           <div class="btn btn-lg-light btn-submit btn-alert">DELETE ACCOUNT PERMANENTLY</div>
         </footer>
 
+        </div>
+
 
 
 </section>
 
 
-
-
-<!-- loop through jinja variable of my collective's and each id gets passed into url_for() -->
-<a href="{{ url_for('collectives.internal_dash', id=2) }}">My collective</a>
-<a href="{{ url_for('users.roles') }}">My roles</a>
-<a href="{{ url_for('users.tasks') }}">My tasks</a>
-<a href="{{ url_for('users.posts') }}">My public posts</a>
-<a href="{{ url_for('users.proposals') }}">My proposals</a>
-<a href="{{ url_for('users.dues') }}">My dues</a>
-<a href="{{ url_for('users.authorities') }}">My authorities</a>
 
 
 {% endblock %}

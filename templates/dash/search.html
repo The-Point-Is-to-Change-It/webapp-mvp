@@ -30,7 +30,7 @@ Search |
   <input type="text" value="search">
 </div>
 
-
+<h1 class="page-title">My Groups</h1>
 
 {% for collective in collectives %}
 
@@ -38,10 +38,10 @@ Search |
 
         <header>
 
-          <a href="{{ url_for('users.account') }}" class="row">
-            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/profile-icon.png" id="post-user-pic">
+          <a href="{{ url_for('collectives.internal_dash', id=2) }}" class="row">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/collective.jpg" id="post-user-pic">
             <div class="col m-start" >
-              <h1>{{collective.username}}</h1>
+              <h1>{{collective.name}}</h1>
               <h2>@{{collective.handle}}</h2>
             </div>
           </a>
@@ -54,6 +54,10 @@ Search |
 
 </div>
 
+{% endfor %}
+
+{% for user in users %}
+{{ user }}
 {% endfor %}
 
 

@@ -9,21 +9,12 @@ Routes - users Contains:
 
 """
 
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, redirect, url_for
 
 users = Blueprint("users", __name__, url_prefix="/users")
 
 
-@users.route('/', methods=['GET'], strict_slashes=False)
-def all():
-    """ your users/profile page """
-    return 'this will be a paginated list of all users to browse through'
 
-
-@users.route('/me', methods=['GET'], strict_slashes=False)
-def account():
-    """ your users/profile page """
-    return render_template('/dash/account.html')
 
 """
 Individual widgets for user
@@ -80,11 +71,13 @@ context = {
     'dues': tmp_dues
 }
 
+
 @users.route('/collectives')
 def collectives():
     """ view of my collectives widget """
     context['widget'] = 'col'
     return render_template('/dash/widget.html', context=context)
+
 
 @users.route('/roles')
 def roles():
@@ -92,11 +85,13 @@ def roles():
     context['widget'] = 'role'
     return render_template('/dash/widget.html', context=context)
 
+
 @users.route('/posts')
 def posts():
     """ view of my public posts widget """
     context['widget'] = 'post'
     return render_template('/dash/widget.html', context=context)
+
 
 @users.route('/tasks')
 def tasks():
@@ -104,17 +99,20 @@ def tasks():
     context['widget'] = 'task'
     return render_template('/dash/widget.html', context=context)
 
+
 @users.route('/dues')
 def dues():
     """ view of my dues widget """
     context['widget'] = 'dues'
     return render_template('/dash/widget.html', context=context)
 
+
 @users.route('/proposals')
 def proposals():
     """ view of my proposals widget """
     context['widget'] = 'prop'
     return render_template('/dash/widget.html', context=context)
+
 
 @users.route('/authorities')
 def authorities():
@@ -126,9 +124,42 @@ def authorities():
 """
 Other users
 """
+
+@users.route('/', methods=['GET'], strict_slashes=False)
 @users.route('/<id>', methods=['GET'], strict_slashes=False)
-def profile():
+def profile(id=None):
     """ public user profile """
-    # from models.user import User
-    # user = User.get_by_attr('id', id)
-    return render_template('/dash/profile.html', user=id)
+    from models.users import User
+    # not logged in and entered /user
+    if not request.current_user and not id:
+        return redirect(url_for('landing.index'))
+    # not logged in and viewing a user page
+    if not request.current_user and id:
+        user = User.get_by_cls_and_attr('id', id)
+        if not user:
+            return redirect(url_for('dash.public_square'))
+        data = {
+            'user': user,
+            'full_view': request.full_view
+        }
+        return render_template('/dash/public_profile.html', data=data)
+    # logged in and viewing your account
+    if request.current_user:
+        if not id or id == request.current_user:
+            user = User.get_by_cls_and_attr('id', request.current_user)
+            data = {
+                'current_user': user,
+                'full_view': request.full_view
+            }
+            return render_template('/dash/account.html', data=data)
+    # logged in and viewing another user profile
+    if request.current_user and id and not id == request.current_user:
+        user = User.get_by_cls_and_attr('id', id)
+        data = {
+            'user': user,
+            'current_user': request.current_user,
+            'full_view': request.full_view
+        }
+        return render_template('/dash/public_profile.html', data=data)
+    return redirect(url_for('landing.index'))
+
