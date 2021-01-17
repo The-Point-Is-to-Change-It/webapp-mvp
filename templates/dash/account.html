@@ -14,12 +14,18 @@ Account |
     <script>
 
       document.getElementById('profile-icon').style.backgroundColor = "var(--color-neutral)";
+      
+      
     
     </script>
 </head>
 
 
-        
+  <div>
+      {% if data.message %}
+      <h1 class="">{{ data.message }}</h1>
+      {% endif %}
+  </div>
 
   <div class="row a-center">
     <img class="profile-pic" id="profile-pic"  src="https://storage.googleapis.com/tpitci-static-images/russ.jpg" alt="your profile picture">

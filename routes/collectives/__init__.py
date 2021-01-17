@@ -9,7 +9,9 @@ Routes - collectives Contains:
 
 """
 
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request
+import requests
+from helpers import build_url
 
 collectives = Blueprint("collectives", __name__, url_prefix="/collectives")
 
@@ -23,13 +25,30 @@ def index():
 @collectives.route('/<id>', methods=['GET'], strict_slashes=False)
 def profile(id):
     """ view a collective's public page """
-    return render_template('/dash/public_profile.html')
+    from models.auth import Auth
+    current_user = Auth.get_current_user()
+    collective = requests.get(build_url('api/collectives/' + id)).json()
+    print(collective)
+    data = {
+        'current_user': current_user,
+        'full_view': request.full_view,
+        'collective': collective
+    }
+    return render_template('/dash/public_profile.html', data=data)
 
 
 @collectives.route('/auth/<id>', methods=['GET'], strict_slashes=False)
 def internal_dash(id):
     """ view a collective's internal dashboard  """
-    return render_template('/private/collective.html')
+    from models.auth import Auth
+    current_user = Auth.get_current_user()
+    collective = requests.get(build_url('api/collectives/id/' + str(id))).json()
+    data = {
+        'current_user': current_user,
+        'full_view': request.full_view,
+        'collective': collective.get('collectives')
+    }
+    return render_template('/private/collective.html', data=data)
 
 
 @collectives.route('/auth/<col_id>/roles/<role_id>', methods=['GET'], strict_slashes=False)

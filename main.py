@@ -50,13 +50,6 @@ def before():
     from models.auth import Auth
     # isolate requested route from url
     request.full_view, request.current_user = Auth.authenticate(request.url)
-    
-    
-    
-
-
-
-
 
 
 @app.errorhandler(400)
@@ -89,10 +82,6 @@ def Unauthorized(error) -> str:
     Unauthorized handler
     """
     return jsonify({"error": "Unauthorized"}), 401
-
-
-
-
 
 
 if __name__ == '__main__':

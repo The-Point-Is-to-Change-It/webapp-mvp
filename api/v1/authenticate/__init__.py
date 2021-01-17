@@ -23,7 +23,7 @@ def login():
     print(3)
     
     # validate user credentials
-    user = User.get_by_cls_and_attr('email', email)
+    user = User.get_n_by_cls_and_attr('email', email, 1)
     if not user or not user.get('password') == password:
         print(1)
         response['message'] = 'incorrect user credentials'
@@ -34,14 +34,15 @@ def login():
     session = Session(**{
         'user_id': user.get('id')
         })
-    print(4)
-    
+
+    session_id = session.id
+    del session
     # set cookie with session id
     return jsonify(
-            {'id': session.id,
+            {'id': session_id,
              'status': 'OK',
              'message': 'login successful',
-             'user_id': user.get('id')}
+             'user': user}
             ), 200
 
 
@@ -82,18 +83,22 @@ def logout():
     """ delete current session """
     from flask import make_response
     from models.auth.session import Session
-    cookie = request.form.get('session')
-    if not cookie or not cookie in Session.sessions:
-        return jsonify(
+    
+    cookie = request.form.get('session')   
+    if not cookie in Session.sessions:
+        ret = jsonify(
             {'status': 'OK',
              'message': 'no session to delete',
             }
         )
-    del Session.sessions[cookie]
-    bad_session_dict = Session.get_by_cls_and_attr('id', cookie)
-    Session.delete_from_db_with_dict(bad_session_dict)
-    return jsonify(
+    else:
+        del Session.sessions[cookie]
+        ret = jsonify(
             {'status': 'OK',
              'message': 'session deleted',
             }
         )
+    bad_session_dict = Session.get_by_cls_and_attr('id', cookie)
+    Session.delete_from_db_with_dict(bad_session_dict)
+    print('session should be deleted')
+    return ret

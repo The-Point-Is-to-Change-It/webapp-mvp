@@ -46,6 +46,12 @@
     
 }
 
+.twitter-timeline {
+    min-height: 100vh;
+    height: 100vh;
+}
+
+
 /* ================================= DOCUMENT LEVEL */
 * > * {
     display: flex;
@@ -432,6 +438,7 @@ body > header, body > footer {
 .und:hover {
     text-decoration: underline;
 }
+
 
 /* ================================= CONTENT */
 #content {

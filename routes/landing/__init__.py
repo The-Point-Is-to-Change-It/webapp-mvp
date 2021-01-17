@@ -9,11 +9,11 @@ Routes - Landing Contains:
 
 """
 
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
 landing = Blueprint("landing", __name__, url_prefix="")
 
 @landing.route('/', methods=['GET'], strict_slashes=False)
 def index():
     """ public landing page """
-    return render_template('/public/index.html', data={'user': 'landing'})
+    return render_template('/public/index.html', data={'error': request.args.get('error')})

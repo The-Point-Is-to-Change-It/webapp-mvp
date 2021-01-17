@@ -13,7 +13,7 @@ from models.base import Base
 
 class Session(Base):
     """ Session class """
-    exp_time = 20
+    exp_time = 3333
     sessions = {}
 
     def __init__(self, *args, **kwargs):

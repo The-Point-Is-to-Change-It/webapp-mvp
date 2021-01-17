@@ -21,24 +21,64 @@
 <!-- JINJA SETUP HERE -->
 
 
+<head>
+    <script>
+        function public_square_hover(bool) {
+            if (bool) {
+                document.getElementById('public-square-icon').innerHTML = "PUBLIC SQUARE";
+            }
+            else {
+                document.getElementById('public-square-icon').innerHTML = '<img class="nav-icon" id="parthenon" src="https://storage.googleapis.com/tpitci-static-images/public-sq-wht.svg" alt="Public Square">'
+            }
+        }
 
+        function account_hover(bool) {
+            if (bool) {
+                document.getElementById('profile-icon').innerHTML = "PROFILE";
+            }
+            else {
+                document.getElementById('profile-icon').innerHTML = '<img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/user.svg" alt="profile icon">'
+            }
+        }
+
+        function notifications_hover(bool) {
+            if (bool) {
+                document.getElementById('notifications-icon').innerHTML = "NOTIFICATIONS";
+            }
+            else {
+                document.getElementById('notifications-icon').innerHTML = '<img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/noti-rnd.svg" alt="notifications icon">'
+            }
+        }
+
+        function search_hover(bool) {
+            if (bool) {
+                document.getElementById('search-icon').innerHTML = "SEARCH";
+            }
+            else {
+                document.getElementById('search-icon').innerHTML = '<img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/search.svg" alt="search icon">'
+            }
+        }
+
+
+    </script>
+</head>
 
 <nav class="navbar">
-    <a href="{{ url_for('dash.public_square') }}" id="public-square-icon">
-        <img class="nav-icon" id="parthenon" src="https://storage.googleapis.com/tpitci-static-images/public-sq-wht.svg" alt="public square icon">
+    <a href="{{ url_for('dash.public_square') }}" id="public-square-icon" onmouseout="public_square_hover(false)" onmouseover="public_square_hover(true)">
+        <img class="nav-icon" id="parthenon" src="https://storage.googleapis.com/tpitci-static-images/public-sq-wht.svg" alt="Public Square">
     </a>
 
 {% if current_user %}
 
-    <a href="{{ url_for('users.profile') }}" id="profile-icon">
+    <a href="{{ url_for('users.profile') }}" id="profile-icon" onmouseout="account_hover(false)" onmouseover="account_hover(true)">
         <img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/user.svg" alt="profile icon">
     </a>
-    <a href="{{ url_for('dash.notifications') }}" id="notifications-icon">
+    <a href="{{ url_for('dash.notifications') }}" id="notifications-icon" onmouseout="notifications_hover(false)" onmouseover="notifications_hover(true)">
         <img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/noti-rnd.svg" alt="notifications icon">
     </a>
 {% endif %}
 
-    <a href="{{ url_for('dash.search') }}" id="search-icon">
+    <a href="{{ url_for('dash.search') }}" id="search-icon" onmouseout="search_hover(false)" onmouseover="search_hover(true)">
         <img class="nav-icon" src="https://storage.googleapis.com/tpitci-static-images/search.svg" alt="search icon">
     </a>
 </nav>

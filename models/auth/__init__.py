@@ -20,9 +20,12 @@ class Auth():
         format the request url to isolate the route
         """
         if url.startswith('http://127.0.0.1'):
+            """
+            # USE THIS IN PRODUCTION
+            if not url.startswith('https'):
+                return None
+            """
             return url[21:]
-        if not url.startswith('https'):
-            return None
         elif url.startswith('https://thepointistochangeit.com'):
             return url[32:]
         else:
@@ -57,7 +60,9 @@ class Auth():
         from datetime import datetime
         if not cookie:
             return None
-        this_session_dict = Session.get_by_cls_and_attr('id', cookie)
+        this_session_dict = Session.get_n_by_cls_and_attr('id', cookie, 1)
+        if this_session_dict:
+            this_session_dict = this_session_dict[0]
         if not this_session_dict:
             return None
         if Session.expired(this_session_dict):
@@ -90,3 +95,16 @@ class Auth():
         if authenticated_user and not is_private and not is_public:
             full_view = True
         return full_view, authenticated_user
+
+    @classmethod
+    def get_current_user(cls):
+        """ make request to api for current user based on request.current_user """
+        from models.users import User
+        from flask import request
+        import requests
+        from helpers import build_url
+        id = request.current_user if request.current_user else ''
+        user_response = requests.get(build_url('api/users/id/' + id)).json()
+        if user_response.get('users') and len(user_response.get('users')) > 0:
+            return user_response.get('users')[0]
+        return None

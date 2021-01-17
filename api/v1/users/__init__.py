@@ -1,16 +1,40 @@
+""""
+Users module contains the following:
+
+
+POST /users - create a new user
+
+GET /users - get all users
+GET /users/n - get some number of users
+GET /users/attr/value/ - get all users by attribute and value - also check if attr is list or dict and value in attr instead of == attr
+GET /users/attr/value/n - get n users by attribute and value (0 for all users)
+
+UPDATE /users/id/attr/value - update one user with attr = value
+UPDATE /users/attr/value - update all users with attr = value
+UPDATE /users/id/invites/collective_id - invite user to join collective
+
+DELETE /users/id - delete one user by id
+DELETE /users/attr/value - delete all users with attr = value
+DELETE /users/id/invites/collective_id - undo invitation to user to join collective
+
+"""
+
 from api.v1 import api_v1
 from flask import jsonify, request
+from models.users import User
 
 
 
-# POST USERS
+"""
+CREATE METHODS
+"""
+
+# POST /users - create a new user
 @api_v1.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
     """
-    CREATE A NEW USER ACCOUNT
+    create one new user/account
     """
-    from models.users import User
-
     # get form data
     email, name = request.form.get('email'), request.form.get('name')
     handle, password = request.form.get('handle'), request.form.get('password')
@@ -23,7 +47,12 @@ def create_user():
             ), 400
     
     # check email and handle are unique and fields are valid
-    print(User.get_by_cls_and_attr('email', email))
+    print(User.get_n_by_cls_and_attr('email', email), 1)
+    if User.get_all_by_cls_and_attr('email', email) or User.get_all_by_cls_and_attr('handle', handle):
+        return jsonify(
+            {'status': 'error',
+             'message': 'email and handle must be unique'}
+            ), 400
     
     # create new user
     attrs = {
@@ -34,24 +63,106 @@ def create_user():
     }
     return jsonify(User(**attrs).to_dict())
 
+"""
+GET METHODS
+"""
 
 
+# GET /users - get all users
+# GET /users/n - get some number of users
+@api_v1.route('users/', methods=['GET'], strict_slashes=False)
+@api_v1.route('users/<int:n>', methods=['GET'], strict_slashes=False)
+def get_users(n=None):
+    """
+    1. get all users
+    2. get some number of users
+    """
+    return User.get_all_or_n_cls(n)
 
 
-@api_v1.route('/users/<limit>', methods=['GET'], strict_slashes=False)
-@api_v1.route('/users', methods=['GET'], strict_slashes=False)
-def get_users(limit=None):
-    """ get users from the db - if limit is provided, get that number """
-    from models.users import User
-    users = User.get_all()
-    if not limit:
-        return jsonify(users)
+# GET /users/attr/value/ - get all users by attribute and value
+# GET /users/attr/value/n - get n users by attribute and value (0 for all users)
+@api_v1.route('users/<string:attr>/<value>', methods=['GET'], strict_slashes=False)
+@api_v1.route('users/<string:attr>/<value>/<int:n>', methods=['GET'], strict_slashes=False)
+def get_user_by_attr(attr, value, n=None):
+    """
+    1. get all users with att = value
+    2. get n users with attr = value
+    """
+    if n:
+        users = User.get_n_by_cls_and_attr(str(attr), str(value), n)
     else:
-        # this should be handled in the storage class in the future. look in to pagination with firestore
-        limit = int(limit)
-        ret = []
-        for i in range(limit):
-            ret.append(users[i])
-        return jsonify(ret)
+        users = User.get_all_by_cls_and_attr(str(attr), str(value))
+    if n == 1:
+            users = users[0]
+    print(users)
+    if not users or len(users) == 0:
+        return jsonify({
+            'status': 'error',
+            'message': 'not found'
+        }), 400
+    return jsonify({
+        'status': 'OK',
+        'message': 'user(s) found',
+        'users': users
+    }), 200
 
 
+# UPDATE /users/id/attr/value - update one user with attr = value
+@api_v1.route('/users/<id>/<attr>/<value>', methods=['UPDATE'], strict_slashes=False)
+def update_one_user(id, attr, value):
+    """
+    find user by id and set their attr = value
+    """
+    user = User.get_n_by_cls_and_attr('id', id, 1)
+    if not user or len(user) == 0:
+        return jsonify({
+            'status': 'error',
+            'message': 'user not found'
+        }), 400
+    user = user[0]
+    if 'attr' in user:
+        User.update_attr_by_id(user.get('id'), attr, value)
+    return jsonify({
+            'status': 'OK',
+            'message': 'user updated',
+            'user': user
+        }), 200
+
+
+# UPDATE /users/attr/value - update all users with attr = value
+@api_v1.route('/users/<attr>/<value>', methods=['UPDATE'], strict_slashes=False)
+def update_users(attr, value):
+    """
+    update all users to have attr = value
+    """
+    users = User.get_all()
+    if not users or len(users) == 0:
+        return jsonify({
+            'status': 'error',
+            'message': 'user not found'
+        }), 400
+    for user in users:
+        user.update_attr_by_id(user.get('id'), attr, value)
+    return jsonify({
+        'status': 'OK',
+        'message': 'users updated'
+    })
+
+
+# UPDATE /users/id/invites/collective_id - invite user to join collective
+@api_v1.route('/users/<entity_id>/invites/<collective>', methods=['UPDATE'], strict_slashes=False)
+def send_invite(entity_id, collective):
+    """ invite an entity into the collective """
+    return
+
+
+
+"""
+
+
+
+DELETE /users/id - delete one user by id
+DELETE /users/attr/value - delete all users with attr = value
+DELETE /users/id/invites/collective_id - undo invitation to user to join collective
+"""

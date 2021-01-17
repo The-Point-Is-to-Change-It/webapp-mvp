@@ -18,5 +18,3 @@ api_v1 = Blueprint("api", __name__, url_prefix="/api")
 def index():
     return jsonify({'Status': 'OK'}), 200
 
-
-

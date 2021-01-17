@@ -20,38 +20,26 @@
 
 <div id="container">
 
-    {% if full_view %}
-This is the full full_view
-{% else %}
-This is NOT the full view 
-{% endif %}
-    <div id="action">
-        <div><span class="big">THIS IS THE WAY 2020 ENDS</span></div>
-        <div><span class="medium">NOT WITH A BANG,</span></div>
-        <div><span class="small">BUT A CLICK</span></div>
-    </div>
+    
+    
+    <a class="twitter-timeline" href="https://twitter.com/POINTISTOCHANGE?ref_src=twsrc%5Etfw">Tweets by POINTISTOCHANGE</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-    <div id="incentives">
-        <div class="bar" id="views"><div>VIEWS</div></div>
-        <div class="bar"id="likes"><div>LIKES</div></div>
-        <div class="bar" id="change"><div>CHANGE</div></div>
-    </div>
 
-    <span id="twitter-container">
-        <a id="twitter-link" href="https://twitter.com/POINTISTOCHANGE">STAY IN THE LOOP!</a>
-    </span>
+</div>        
 
 
     <div class="col m-center">
-
+        <div class="btn-alert">{% if data.error %}
+        {{ data.error }}
+        {% endif %}</div>
         <div class="row m-between">
+            
             <div class="btn " onclick="showRegister()">Register</div>
             or
             <div class="btn " onclick="showLogin()">Login</div>
 
 
         </div>
-        <!-- register -->
         <div id="register" >
             <form action="/auth/register" method="POST" name="register">
                 email
@@ -67,7 +55,6 @@ This is NOT the full view
             </form>
         </div>
 
-        <!-- login -->
         <div id="login" onclick="showLogin()" class="hide">
             <form action="/auth/login" method="POST" name="login">
                 email
@@ -78,11 +65,11 @@ This is NOT the full view
             
             </form>
         </div>  
+        
         <a href=" {{ url_for('dash.public_square') }}">preview</a>
-
+        
     </div>
 
-</div>        
 
 
 <head>

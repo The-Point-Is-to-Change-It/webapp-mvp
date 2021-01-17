@@ -12,14 +12,16 @@ Collective Name |
 
 
 
+{% if data.collective %}
+{% set collective = data.collective %}
 
 
         
 <div class="row a-center">
     <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/collective.jpg" id="post-user-pic">
 <div class="col">
-        <h1 class="page-title" >{{ user.name }}</h1>
-        <h3>@{{ user.handle }}</h3>
+        <h1 class="page-title" >{{ collective.name }}</h1>
+        <h3>@{{ collective.handle }}</h3>
 </div>
 </div>
 
@@ -457,4 +459,11 @@ Collective Name |
     </script>
 
 </head>
+
+
+
+{% endif %}
+
+<h1 class="page-title">404 Not found</h1>
+
 {% endblock %}

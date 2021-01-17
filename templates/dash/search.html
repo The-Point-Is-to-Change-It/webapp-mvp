@@ -15,32 +15,59 @@ Search |
     <script>
 
       document.getElementById('search-icon').style.backgroundColor = "var(--color-neutral)";
-    
+
+      function clearField() {
+          var searchBar = document.getElementById('searchbar');
+          if (searchBar.value == "search") {
+              searchBar.value = "";
+          };
+      }
+
+      function search() {
+          var searchVal = document.getElementById('searchbar');
+          if (searchVal) {
+              searchVal.value = "yo this worked";
+          }
+      }
+
+      
     </script>
 </head>
 
-{% if context %}
 
 
-{% set users = context.users %}
-{% set collectives = context.collectives %}
 
-
-<div class="card">
-  <input type="text" value="search">
+<div class="card" >
+    <form name="searchbar_form" id="searchbar_form" action="/dash/search" method="POST">
+        <input name="user_input" type="text" value="search" id="searchbar" onclick="clearField()">
+    </form>
 </div>
 
-<h1 class="page-title">My Groups</h1>
+
+
+
+{% if data.collectives %}
+{% set collectives = data.collectives %}
+{% endif %}
+
+
+
+{% if collectives %}
+<h1 class="page-title">{% if data.current_user %}My Collectives{% else %}Collectives{% endif %}</h1>
+
+
 
 {% for collective in collectives %}
+
+{% set collective_id = collective.id %}
 
 <div class="card">
 
         <header>
 
-          <a href="{{ url_for('collectives.internal_dash', id=2) }}" class="row">
+          <a href="{{ url_for('collectives.internal_dash', id=collective_id) }}" class="row">
             <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/collective.jpg" id="post-user-pic">
-            <div class="col m-start" >
+            <div class="col m-start">
               <h1>{{collective.name}}</h1>
               <h2>@{{collective.handle}}</h2>
             </div>
@@ -54,14 +81,51 @@ Search |
 
 </div>
 
+
 {% endfor %}
+{% endif %}
+
+
+
+{% if data.users %}
+{% set users = data.users %}
+{% endif %}
+
+{% if users %}
+
+<h1 class="page-title">Users</h1>
+
+
+
 
 {% for user in users %}
-{{ user }}
+
+{% set user_id = user.id %}
+<div class="card">
+
+        <header>
+
+          <a href="{{ url_for('users.profile', id=user_id) }}" class="row">
+            <img class="profile-pic" src="https://storage.googleapis.com/tpitci-static-images/user.svg" id="post-user-pic">
+            <div class="col m-start" >
+              <h1>{{user.name}}</h1>
+              <h2>@{{user.handle}}</h2>
+            </div>
+          </a>
+
+          <div class="btn-up-or-down-container">
+            <div class="btn btn-up btn-sm-light wide"><div>connect</div></div>
+          </div>
+
+        </header>
+
+</div>
+
+
 {% endfor %}
-
-
 {% endif %}
+
+
 
 
 

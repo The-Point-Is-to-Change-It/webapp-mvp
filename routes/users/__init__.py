@@ -135,7 +135,7 @@ def profile(id=None):
         return redirect(url_for('landing.index'))
     # not logged in and viewing a user page
     if not request.current_user and id:
-        user = User.get_by_cls_and_attr('id', id)
+        user = User.get_n_by_cls_and_attr('id', id, 1)
         if not user:
             return redirect(url_for('dash.public_square'))
         data = {
@@ -146,7 +146,7 @@ def profile(id=None):
     # logged in and viewing your account
     if request.current_user:
         if not id or id == request.current_user:
-            user = User.get_by_cls_and_attr('id', request.current_user)
+            user = User.get_n_by_cls_and_attr('id', request.current_user, 1)
             data = {
                 'current_user': user,
                 'full_view': request.full_view
@@ -154,10 +154,13 @@ def profile(id=None):
             return render_template('/dash/account.html', data=data)
     # logged in and viewing another user profile
     if request.current_user and id and not id == request.current_user:
-        user = User.get_by_cls_and_attr('id', id)
+        user = User.get_n_by_cls_and_attr('id', id, 1)
+        current_user = User.get_n_by_cls_and_attr('id', request.current_user, 1)
+        print('IN HERE YO')
+        print(request.current_user)
         data = {
             'user': user,
-            'current_user': request.current_user,
+            'current_user': current_user,
             'full_view': request.full_view
         }
         return render_template('/dash/public_profile.html', data=data)

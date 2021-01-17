@@ -36,19 +36,20 @@
     <!-- ================================= HEADER -->
     <header class="" color-theme="dark">
 
-
+        
         <!-- ACTING CAPACITY -->
         {% if current_user %}
         <a href="{{ url_for('users.profile') }}" id="acting-capacity">
           <img class="profile-pic" id="acting-capacity-photo"  src="https://storage.googleapis.com/tpitci-static-images/russ.jpg" alt="acting capacity profile picture">
           <div id="acting-capacity-info">
+
             <div id="acting-capacity-name">{{ current_user.name }}</div>
             <div id="acting-capacity-handle">@{{ current_user.handle }}</div>
           </div>
 
         </a>
 
-          <a href="{{ url_for('auth.logout') }}">logout</a>
+          <a href="{{ url_for('auth.logout') }}">logout</a> 
 
         {% else %}
         <a class="logo-container" href="{{ url_for('landing.index') }}">
