@@ -52,7 +52,7 @@ class Base():
         return storage.get_all_by_cls_and_attr(cls, attr, val)
     
     @classmethod
-    def get_n_by_cls_and_attr(cls, attr, val, n):
+    def get_n_by_cls_and_attr(cls, attr, val, n=None):
         """ get n objects where attribute == value """
         from models.storage import storage
         return storage.get_n_by_cls_and_attr(cls, attr, val, n)
@@ -108,8 +108,21 @@ class Base():
 
         From models.classname import Classname
         Classname.update_attr_by_id(object_id, attr_to_update, new_value)
-
         """
         from models.storage import storage
         return storage.update_attr_by_id(cls, id, attr, value)
     
+    """ DELETES """
+
+    @classmethod
+    def remove_attr_value(cls, id, attr, value):
+        """
+        Remove a value from object in the database
+        
+        USAGE: ------------------------------------------------
+
+        From models.classname import Classname
+        Classname.remove_attr_value(object_id, attr_to_update, new_value)
+        """
+        from models.storage import storage
+        return storage.remove_attr_value(cls, id, attr, value)

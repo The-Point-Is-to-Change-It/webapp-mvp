@@ -28,7 +28,6 @@ class Base_Test():
                     data['email'] = f'test{cls_name}Email{n}'
                     data['password'] = f'niceTry'
                 response = requests.post(build_url(f'api/{cls_name}'), data=data).json()
-                print(response, '*********')
                 cls.test_obj.append(response.get(f'{cls_name}'))
             except Exception as e:
                 print('API Failure *****')
@@ -43,9 +42,10 @@ class Base_Test():
         cls_name = cls.cls_name
         obj_ids = [test_obj_one.get('id'), test_obj_two.get('id'), test_obj_three.get('id')]
         cls_name_cap = cls_name.capitalize()[:-1]
-        exec(f'from models.{cls_name} import {cls_name_cap}')
         for obj_id in obj_ids:
-            exec(f'{cls_name_cap}.delete_from_db_with_id("{obj_id}")')
+            print(f'api/{cls_name}/{obj_id}')
+            requests.delete(build_url(f'api/{cls_name}/{obj_id}')).json()
+
 
     @classmethod
     def get_test_objects(cls):
@@ -68,17 +68,29 @@ class Base_Test():
         obj_1, obj_2, obj_3, cls_name = self.__class__.get_test_objects()
         response = requests.get(build_url(f'api/{cls_name}/name/test{cls_name}Name')).json()
         self.assertEqual(response.get('status'), 'OK')
-        self.assertEqual(len(response.get(f'{cls_name}')), 3)
-    def common_get_n_by_attr_value(self):
-        pass
-    def common_update_all(self):
-        pass
-    def common_update_by_attr_value(self):
-        pass
-    def common_delete_by_id(self):
-        pass
-    def common_delete_value_from_attr(self):
-        pass
+    def test_get_n_by_attr_value(self):
+        obj_1, obj_2, obj_3, cls_name = self.__class__.get_test_objects()
+        response = requests.get(build_url(f'api/{cls_name}/name/test{cls_name}Name/2')).json()
+        self.assertEqual(response.get('status'), 'OK')
+        self.assertEqual(len(response.get(f'{cls_name}')), 2)
+    def test_update_attr_by_id(self):
+        obj_1, obj_2, obj_3, cls_name = self.__class__.get_test_objects()
+        obj_id = obj_1.get('id')
+        response = requests.put(build_url(f'api/{cls_name}/{obj_id}/name/tmpName')).json()
+        self.assertEqual(response.get('status'), 'OK')
+        response = requests.put(build_url(f'api/{cls_name}/{obj_id}/name/test{cls_name}Name')).json()
+        self.assertEqual(response.get('status'), 'OK')
+    def test_update_value_inside_attr_by_id(self):
+        obj_1, obj_2, obj_3, cls_name = self.__class__.get_test_objects()
+        obj_id = obj_1.get('id')
+        response = requests.put(build_url(f'api/{cls_name}/{obj_id}/collectives/tmpCollective')).json()
+        self.assertEqual(response.get('status'), 'OK')
+    def test_remove_value_inside_attr_by_id(self):
+        obj_1, obj_2, obj_3, cls_name = self.__class__.get_test_objects()
+        obj_id = obj_1.get('id')
+        response = requests.delete(build_url(f'api/{cls_name}/{obj_id}/collectives/tmpCollective')).json()
+        self.assertEqual(response.get('status'), 'OK')
+    
         
 
 

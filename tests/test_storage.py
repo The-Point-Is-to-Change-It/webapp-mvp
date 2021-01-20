@@ -43,9 +43,6 @@ class TestStorage(unittest.TestCase):
         self.assertTrue(len(all_test_objects) == 3)
         two_test_objects = storage.get_n(Test, 2)
         self.assertTrue(len(two_test_objects) == 2)
-        # get_all_by_cls_and_attr
-        all_test_obj_by_attr = storage.get_all_by_cls_and_attr(Test, 'testKey', 'testValue')
-        self.assertTrue(len(all_test_obj_by_attr) == 2)
         # get_n_by_cls_and_attr
         one_test_obj_by_attr = storage.get_n_by_cls_and_attr(Test, 'testKey', 'testValue', 1)
         self.assertTrue(len(one_test_obj_by_attr) == 1)

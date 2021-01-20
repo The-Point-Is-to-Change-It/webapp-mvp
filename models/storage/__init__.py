@@ -36,14 +36,7 @@ class Storage():
         """ save an object to the db """
         Storage._db.collection(cls_name).document(obj_dict.get('id')).set(obj_dict)
     
-    """
-    DELETE OBJECT METHODS
-    """
-
-    @classmethod
-    def delete_from_db_with_id(self, cls, id):
-        """ usage: storage.delete_from_db_with_id('User', user_id) """
-        Storage._db.collection(cls.__name__).document(id).delete()
+    
 
 
     """
@@ -66,31 +59,23 @@ class Storage():
                 break
         return ret
 
-
-    def get_all_by_cls_and_attr(self, cls, attr, val):
-        """ get all objects in given class that have specified attr and value """
-        # THIS NEEDS TO BE UPDATED TO NOT GET ALL DOCUMENTS IN A COLLECTION AND HAVE TO LOOP THROUGH
-        ay = [ref.to_dict() for ref in Storage._db.collection(cls.__name__).get() if attr in ref.to_dict()]
-        ret = []
-        for each in ay:
-            if each.get(attr) == val:
-                ret.append(each)
-        return ret
     
-    def get_n_by_cls_and_attr(self, cls, attr, val, n):
+    def get_n_by_cls_and_attr(self, cls, attr, val, n=None):
         """ get some number of objects in given class that have specified attr and value """
         # THIS NEEDS TO BE UPDATED TO NOT GET ALL DOCUMENTS IN A COLLECTION AND HAVE TO LOOP THROUGH
         val = val.lower()
-        ay = [ref.to_dict() for ref in Storage._db.collection(cls.__name__).get() if attr in ref.to_dict()]
+        all_found = [ref.to_dict() for ref in Storage._db.collection(cls.__name__).get() if attr in ref.to_dict()]
         ret = []
-        for each in ay:
+        if not n:
+            n = len(all_found)
+        for each in all_found:
             if type(each.get(attr)) == str:
-                if each.get(attr).lower() == val:
+                if each.get(attr).lower() == val or val in each.get(attr):
                     if len(ret) < n:
                         ret.append(each)
                     else:
                         break
-            elif each.get(attr) == val:
+            elif each.get(attr) == val or val in each.get(attr):
                 if len(ret) < n:
                     ret.append(each)
                 else:
@@ -103,7 +88,38 @@ class Storage():
     
     def update_attr_by_id(self, cls, id, attr, value):
         """ called only in base.py """
-        Storage._db.collection(cls.__name__).document(id).update({attr: value})
+        ALLOWED_CLASSES = ['User', 'Collective', 'Role', 'Will', 'Authority']
+        ref = Storage._db.collection(cls.__name__).document(id)
+        obj = cls.get_n_by_cls_and_attr('id', id, 1) if cls.__name__ in ALLOWED_CLASSES else None
+        if obj:
+            if type(obj[0].get(attr)) == list:
+                ref.update({attr: firestore.ArrayUnion([value])})
+                return
+        ref.update({attr: value})
+
+    """
+    DELETE OBJECT METHODS
+    """
+
+    @classmethod
+    def delete_from_db_with_id(self, cls, id):
+        """ usage: storage.delete_from_db_with_id('User', user_id) """
+        print('in storage delete')
+        Storage._db.collection(cls.__name__).document(id).delete()
+
+    def remove_attr_value(self, cls, id, attr, value):
+        """ called only in base.py """
+        ALLOWED_CLASSES = ['User', 'Collective', 'Role', 'Will', 'Authority']
+        ref = Storage._db.collection(cls.__name__).document(id)
+        obj = cls.get_n_by_cls_and_attr('id', id, 1) if cls.__name__ in ALLOWED_CLASSES else None
+        if obj:
+            if type(obj[0].get(attr)) == list:
+                print('type is list')
+                ref.update({attr: firestore.ArrayRemove([value])})
+                return
+        print('should not be here')
+        ref.update({attr: value})
+        
 
     
 
