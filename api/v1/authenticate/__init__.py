@@ -7,7 +7,7 @@ from flask import jsonify, request
 def login():
     """ create a session to log in """
     from models.auth.session import Session
-    from models.users import User
+    from models.users import User, valid_password
     print(1)
     # get form data
     email, password = request.form.get('email'), request.form.get('password')
@@ -23,8 +23,9 @@ def login():
     print(3)
     
     # validate user credentials
-    user = User.get_n_by_cls_and_attr('email', email, 1)
-    if not user or not user.get('password') == password:
+    user = User.get_n_by_cls_and_attr('email', email, 1)[0]
+    stored_password = user.get('password')
+    if not user or not password == stored_password:
         print(1)
         response['message'] = 'incorrect user credentials'
         return jsonify(response), 404

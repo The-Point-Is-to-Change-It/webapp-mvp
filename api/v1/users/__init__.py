@@ -19,9 +19,10 @@ DELETE /users/id/invites/collective_id - undo invitation to user to join collect
 
 """
 
-from api.v1 import api_v1
+from api.v1 import api_v1, create_one_obj, get_all_or_n_obj
 from flask import jsonify, request
 from models.users import User
+
 
 
 # POST /users - create a new user
@@ -29,54 +30,39 @@ def create_user():
     """
     create one new user/account
     """
-    # get form data
-    email, name = request.form.get('email'), request.form.get('name')
-    handle, password = request.form.get('handle'), request.form.get('password')
-    # check all data is present
-    if not email or not name or not handle or not password:
-        return jsonify(
-            {'status': 'error',
-             'message': 'incomplete form'}
-            ), 400
-    # check email and handle are unique and fields are valid
-    if User.get_all_by_cls_and_attr('email', email) or User.get_all_by_cls_and_attr('handle', handle):
-        return jsonify(
-            {'status': 'error',
-             'message': 'email and handle must be unique'}
-            ), 400
-    # create new user
-    attrs = {
-        'name': name,
-        'email': email,
-        'handle': handle,
-        'password': password
-    }
-    user = User(**attrs).to_dict()
-    del user['password']
-    return jsonify({
-        'status': 'OK',
-        'message': 'user created',
-        'users': user
-    })
+    # verify data is present and handle is unique
+    response = create_one_obj('User')
+    if response.get('status') == 'error':
+        return jsonify(response)
+    # check that email and password are present
+    email, password = request.form.get('email'), request.form.get('password')
+    if not email or not password:
+        response = {'status': 'error',
+                    'message': 'incomplete form'}
+    # check that email is unique
+    if User.get_n_by_cls_and_attr('email', email, 1):
+        response = {'status': 'error',
+                    'message': 'email must be unique'}
+    # if all goes well so far, instantiate user
+    if response.get('status') == 'OK':
+        response['attributes']['email'] = email
+        response['attributes']['password'] = password
+        user = User(**response.get('attributes')).to_dict()
+        del response['attributes']
+        response['users'] = user
+        del response['users']['password']
+    return jsonify(response)
+
 
 # GET /users - get all users
 # GET /users/n - get some number of users
-def get_users(n=None):
+def get_all_or_n_users(n=None):
     """
-    1. get all users
+    1. get all users or
     2. get some number of users
     """
-    users = User.get_all_or_n_cls(n)
-    if users:
-        return jsonify({
-                'status': 'OK',
-                'message': f'all users',
-                'users': users
-            }), 200
-    return jsonify({
-                'status': 'error',
-                'message': f'no matching users',
-            }), 400
+    return jsonify(get_all_or_n_obj('User', n))
+    
 
 # DELETE /users/id - delete one user
 def delete_user(id):
@@ -98,13 +84,10 @@ def delete_user(id):
 @api_v1.route('/users/<int:n>', methods=['POST', 'GET', 'DELETE'], strict_slashes=False)
 def user_post_get_delete(n=None):
     if request.method == 'POST':
-        print('method is POST')
         return create_user()
     elif request.method == 'GET':
-        print('method is GET')
-        return get_users(n)
+        return get_all_or_n_users(n)
     elif request.method == 'DELETE':
-        print('method is DELETE')
         user_id = n
         return delete_user(user_id)
 

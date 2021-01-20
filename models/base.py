@@ -30,6 +30,7 @@ class Base():
     def get_all(cls):
         """ get all objects of this class """
         from models.storage import storage
+        print('in get all')
         return storage.get_all(cls)
     
     @classmethod
@@ -79,34 +80,24 @@ class Base():
         storage.delete_from_db(self)
 
     @classmethod
-    def delete_from_db_with_dict(cls, dict_repr):
+    def delete_from_db_with_id(cls, id):
         """ delete this object from db """
         from models.storage import storage
-        storage.delete_from_db_with_dict(cls, dict_repr)
+        storage.delete_from_db_with_id(cls, id)
+
+        
     
     """ REPLACE ALL OF THESE WITH METHODS THAT CORRESPOND TO API METHODS """
 
     
     @classmethod
     def get_all_or_n_cls(cls, n):
-        from flask import jsonify
         response = None
         if not n:
             response = cls.get_all()
         else:
             response = cls.get_n(n)
-        cls_name_str = cls.__name__.lower() + 's'
-        if response:
-            return jsonify({
-                    'status': 'OK',
-                    'message': f'all {cls_name_str}',
-                    cls_name_str: response
-                }), 200
-        return jsonify({
-                    'status': 'error',
-                    'message': f'no matching {cls_name_str}',
-                    cls_name_str: response
-                }), 400
+        return response
     
     @classmethod
     def update_attr_by_id(cls, id, attr, value):

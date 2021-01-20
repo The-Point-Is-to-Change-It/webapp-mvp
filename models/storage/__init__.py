@@ -32,23 +32,20 @@ class Storage():
         Storage._db.collection(obj.__class__.__name__).document(obj.id).set(obj.__dict__)
     
     @classmethod
-    def save_obj_to_db_with_dict(self, obj_dict):
+    def save_obj_to_db_with_dict(cls, cls_name, obj_dict):
         """ save an object to the db """
-        Storage._db.collection(obj_dict.__class__.__name__).document(obj_dict.get('id')).set(obj_dict)
+        Storage._db.collection(cls_name).document(obj_dict.get('id')).set(obj_dict)
     
     """
     DELETE OBJECT METHODS
     """
 
     @classmethod
-    def delete_from_db_with_dict(self, cls, dict_repr):
-        """ delete an object from db """
-        Storage._db.collection(cls.__name__).document(dict_repr['id']).delete()
+    def delete_from_db_with_id(self, cls, id):
+        """ usage: storage.delete_from_db_with_id('User', user_id) """
+        Storage._db.collection(cls.__name__).document(id).delete()
 
-    def delete_from_db(self, obj):
-        """ delete an object from db """
-        Storage._db.collection(obj.__class__.__name__).document(obj.id).delete()
-    
+
     """
     GET OBJECT METHODS
     """
@@ -68,16 +65,7 @@ class Storage():
             else:
                 break
         return ret
-    '''
-    def get_by_cls_and_attr(self, cls, attr, val):
-        """ get first object in a given class that has a specified attr and value """
-        # THIS NEEDS TO BE UPDATED TO NOT GET ALL DOCUMENTS IN A COLLECTION AND HAVE TO LOOP THROUGH
-        ay = [ref.to_dict() for ref in Storage._db.collection(cls.__name__).get() if attr in ref.to_dict()]
-        for each in ay:
-            if each.get(attr) == val:
-                return each
-        return None
-    '''
+
 
     def get_all_by_cls_and_attr(self, cls, attr, val):
         """ get all objects in given class that have specified attr and value """
@@ -98,12 +86,12 @@ class Storage():
         for each in ay:
             if type(each.get(attr)) == str:
                 if each.get(attr).lower() == val:
-                    if len(ret) <= n:
+                    if len(ret) < n:
                         ret.append(each)
                     else:
                         break
             elif each.get(attr) == val:
-                if len(ret) <= n:
+                if len(ret) < n:
                     ret.append(each)
                 else:
                     break

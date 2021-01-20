@@ -1,38 +1,23 @@
 from flask import jsonify, request
 from models import Collective
-from api.v1 import api_v1
+from api.v1 import api_v1, create_one_obj, get_all_or_n_obj
 
 
-# POST /collectives - create a new collectives
+
+# POST /collectives - create a new collective
 def create_collective():
     """
-    create one new collective
+    create one new collectives
     """
-    # get form data
-    name, handle = request.form.get('name'), request.form.get('handle')
-    # check all data is present
-    if not name or not handle:
-        return jsonify(
-            {'status': 'error',
-             'message': 'incomplete form'}
-            ), 400
-    # check handle is unique
-    if Collective.get_all_by_cls_and_attr('handle', handle):
-        return jsonify(
-            {'status': 'error',
-             'message': 'email and handle must be unique'}
-            ), 400
-    # create new collectives
-    attrs = {
-        'name': name,
-        'handle': handle
-    }
-    collective = Collective(**attrs).to_dict()
-    return jsonify({
-        'status': 'OK',
-        'message': 'collective created',
-        'collectives': collective
-    })
+    # verify data is present and handle is unique
+    response = create_one_obj('Collective')
+    if response.get('status') == 'error':
+        return jsonify(response)
+    if request.current_user:
+        response['attributes']['members'] = [request.current_user]
+    collective = Collective(**response.get('attributes')).to_dict()
+    response['collectives'] = collective
+    return jsonify(response)
 
 # GET /collectives - get all collectives
 # GET /collectives/n - get some number of collectives

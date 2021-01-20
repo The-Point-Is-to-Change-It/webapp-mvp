@@ -1,4 +1,6 @@
 from models.base import Base
+import bcrypt
+
 
 class ProfileInformation(Base):
     """ public information about a given entity """
@@ -9,7 +11,6 @@ class ProfileInformation(Base):
         self.values = []
         self.project_interests = []
         self.big_why = ''
-
 
 
 class User(Base):
@@ -29,5 +30,6 @@ class User(Base):
         profileInfo = ProfileInformation()
         self.profile_info = profileInfo.id
         self.save_to_db()
+
 
     
