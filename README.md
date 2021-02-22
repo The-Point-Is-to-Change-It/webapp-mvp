@@ -7,9 +7,9 @@ A productivity tool for nonprofits, social and professional clubs, advocacy grou
 The following images are based on wireframe drawings done by hand. You can view those here:
 https://drive.google.com/drive/folders/1-taCohYe76WECDGcxUt-D3GrCmIpTL0P?usp=sharing
 
-![alt text](http://https://i.imgur.com/RbTiGZ4.png)
+![alt text](https://i.imgur.com/RbTiGZ4.png)
 
-![alt text](http://https://i.imgur.com/2kFltIR.png)
+![alt text](https://i.imgur.com/2kFltIR.png)
 
 ![alt text](https://i.imgur.com/XPhsQFB.png)
 
